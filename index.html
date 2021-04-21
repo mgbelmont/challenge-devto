@@ -21,103 +21,179 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Four-card-feature-section</title>
   </head>
-  <body>
-    <!-- HEADER SECTION -->
-    <header class="w-100">
-      <nav class="navbar navbar-light">
-        <div class="menu-left col-6">
-          <!-- Menu Hamburguesa -->
-          <button
-            class="navbar-toggler d-sm-block d-md-none"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <div class="navbar-nav">
-              <div class="title">
-                <h2>DEV Community</h2>
-                <button
-                  class="navbar-toggler close-button"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarNav"
-                  aria-controls="navbarNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="">X</span>
-                </button>
+  <body class="bg-fondo">      
+        <!-- HEADER SECTION -->
+        <header class="w-100 bg-light">
+          <nav class="navbar navbar-light">
+            <div class="menu-left col-6">
+              <!-- Menu Hamburguesa -->
+              <!-- funcionalidad en jquery-->
+              <button
+                class="navbar-toggler d-sm-block d-md-none"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                  <div class="title">
+                    <h2>DEV Community</h2>
+                    <button
+                      class="navbar-toggler close-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#navbarNav"
+                      aria-controls="navbarNav"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                    >
+                      <span class="">X</span>
+                    </button>
+                  </div>
+
+                  <ul>
+                    <li class="nav-item active">
+                      <a href=""
+                        ><img src="images/sidebar/ico1.png" /> Home
+                        <span class="sr-only">(current)</span></a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico2.png" /> Reading List</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico3.png" /> Listings</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico4.png" /> Podcasts</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico5.png" /> Videos</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""><img src="images/sidebar/ico6.png" /> Tags</a>
+                    </li>
+                    <li class="nav-item"><a href="">More...</a></li>
+                  </ul>
+                </div>
               </div>
 
-              <ul>
-                <li class="nav-item active">
-                  <a href=""
-                    ><img src="images/sidebar/ico1.png" /> Home
-                    <span class="sr-only">(current)</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a href=""
-                    ><img src="images/sidebar/ico2.png" /> Reading List</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico3.png" /> Listings</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico4.png" /> Podcasts</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico5.png" /> Videos</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico6.png" /> Tags</a>
-                </li>
-                <li class="nav-item"><a href="">More...</a></li>
-              </ul>
+              <!-- Logo -->
+              <a href="index.html"
+                ><img class="logo" src="images/dev-black.png"
+              /></a>
+              <!-- Search -->
+              <form class="form-inline my-2 my-lg-0 search">
+                <!--FUNCIONALIDAD JQUERY-->
+                <input
+                  class="form-control"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </form>
             </div>
+
+            <div class="menu-right col-6 col-lg-4 offset-lg-2">
+              <button
+                id="post-btn-nav"
+                class="btn button-post"
+                data-view="newPost"
+              >
+                Write a post
+              </button>
+              <img
+                class="ico-search"
+                src="images/single/icon-search.svg"
+                alt=""
+                srcset=""
+              />
+              <img src="images/single/icon-connect.svg" alt="" srcset="" />
+              <img
+                src="images/single/icon-notification.svg"
+                alt=""
+                style="width: 24px; height: 24px"
+              />
+
+              <div
+                class="dropdown dropdown-left d-flex align-items-center"
+                style="width: 24px; height: 24px"
+              >
+                <a
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span>
+                    <img
+                      id="img-test"
+                      src="images/single/photo-profile.jpeg"
+                      alt=""
+                      srcset=""
+                    />
+                  </span>
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow"
+                  aria-labelledby="dropdownMenu2"
+                >
+                  <div class="users-dropdown-wrapper dropdown-item">
+                    <p>Eric Demian Martinez Valdez</p>
+                    <p><small>@ddedemian</small></p>
+                  </div>
+                  <a href="#" id="change-user-nav" class="dropdown-item py-2"
+                    >Change User</a
+                  ><!--Podriamos cambiar de usuario con un modal-->
+                  <a
+                    href="#"
+                    id="create-user-nav"
+                    class="dropdown-item py-2"
+                    data-view="newUser"
+                    >Create user</a
+                  ><!-- Podriamos agregar un usuario en una nueva pantalla-->
+                  <a
+                    href="#"
+                    id="write-post-nav"
+                    class="dropdown-item py-2"
+                    data-view="newPost"
+                    >Write a post</a
+                  ><!-- Mostrara el contenido de newPost-->
+                  <a
+                    href="#"
+                    id="settings-nav"
+                    class="dropdown-item py-2"
+                    data-view="viewUser"
+                    >Settings</a
+                  ><!--Podria mostrar la informacion del usuario-->
+                  <hr />
+                  <a href="#" class="dropdown-item">Sign Out</a>
+                </div>
+              </div>
+            </div>
+          </nav>
+        </header>
+
+        <div class="container container-fluid">
+          <div class="cont-wrapp row">
+
           </div>
-          <!-- Logo -->
-          <a href="index.html"
-            ><img class="logo" src="images/dev-black.png"
-          /></a>
-          <!-- Search -->
-          <form class="form-inline my-2 my-lg-0 search">
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
         </div>
-
-        <div class="menu-right col-6 col-lg-4 offset-lg-2">
-          <button class="btn button-post">Write a post</button>
-          <img
-            class="ico-search"
-            src="images/single/icon-search.svg"
-            alt=""
-            srcset=""
-          />
-          <img src="images/single/icon-connect.svg" alt="" srcset="" />
-          <img src="images/single/icon-notification.svg" alt="" srcset="" />
-          <img
-            class="ico-profile"
-            src="images/single/photo-profile.jpeg"
-            alt=""
-            srcset=""
-          />
-        </div>
-      </nav>
-    </header>
-
+      </div>
+    </div>
     <footer class="w-100">
       <img class="mono" src="images/single/footer-image.png" alt="" srcset="" />
       <div class="footer-wrapper">
@@ -184,5 +260,6 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="js/main.js"></script>
   </body>
 </html>
