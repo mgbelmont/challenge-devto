@@ -44,3 +44,16 @@ replies: {
 users -> se necesita tener usuario para poder crear posts y replies
 posts -> cada post que se cree o se revise debera tener su usuario
 replies -> cada comentario debera tener su id de usuario y su id de post
+
+
+/* COMPARACION ANTERIOR-AHORA*/
+
+Index.html -> home.html
+Post -> viewPost.html
+
+
+// NUEVO
+
+newPost.html-newPost.json
+newUser.html
+viewUser.html
