@@ -6,7 +6,11 @@ user:  {
 idUser,
 nickname,
 fullName,
-avatarUrl
+avatarUrl,
+description,
+work,
+location,
+joined
 }
 
 // ENDPOINT POST
