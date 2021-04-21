@@ -71,7 +71,6 @@ header {
     max-width: 1240px;
     margin: 0 auto;
     padding: 0;
-
     /*NAV BAR LEFT SIDE*/
     .menu-left {
       display: flex;
@@ -192,7 +191,7 @@ header {
       img {
         padding: 8px;
         border-radius: 50%;
-        margin: 0 6px;
+        /*margin: 0 6px;*/
         cursor: pointer;
         &.ico-search {
           display: inherit;
@@ -218,7 +217,7 @@ header {
 
 .cont-wrapp {
   max-width: 1240px;
-  margin: -19px auto;
+  //margin: -19px auto;
   display: flex;
 }
 
