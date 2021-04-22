@@ -264,13 +264,14 @@ header .navbar .menu-right img.ico-search {
   }
 }
 
-header .navbar .menu-right img:last-of-type {
-  padding: 0;
-  width: 40px;
-}
-
 header .navbar .menu-right img:hover {
   background-color: #d2d6db;
+}
+
+header .navbar .menu-right .dropdown-left img {
+  width: 40px;
+  height: 40px;
+  padding: 0;
 }
 
 .container-fluid {
