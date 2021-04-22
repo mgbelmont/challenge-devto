@@ -174,5 +174,26 @@ $(".cont-wrapp").on("click", "#set-user", () => {
 /* Jaimes */
 
 /* Juan de Dios */
+/*
+$('.item-post .even').click(function() {
+    valor= $(this).html();
+    $(this).prepend('<a hef="/ruta">ruta</a>');
+});*/
 
+
+/*		
+    $('.cont-wrapp').on("click", '#view-comments', () => { 
+        $('#view-comments').load('/views/viewPost', 
+                { }, 
+                function() {  
+                       alert('data loaded');
+                });
+ 
+    } );*/
+
+    $('.cont-wrapp').on("click", '#view-comments', () => { 
+        $('.cont-wrapp').children().remove();
+
+} );
+ 
 /* Mary */
