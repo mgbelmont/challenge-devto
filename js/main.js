@@ -23,6 +23,13 @@ $('.dropdown-menu a.new-view').click(event => {
     }
 })
 
+$('#nav-home').click(ev=>{
+  let view = ev.target.dataset.view;
+  let url = `./views/${view}.html`
+  //$(".cont-wrapp").load('./views/newPost.html')
+  loadView(url,view)
+})
+
 
 $(".dropdown-menu #change-user-nav").click(() => {
   $("#myModal").modal("toggle");
@@ -30,7 +37,6 @@ $(".dropdown-menu #change-user-nav").click(() => {
 
 const loadView = (url, view) => {
   $(".cont-wrapp").load(url, () => {
-    console.log(view);
     switch (view) {
       case "home":
         printAllPost(getPosts());
