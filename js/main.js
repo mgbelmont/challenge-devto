@@ -25,14 +25,14 @@ $('.dropdown-menu #change-user-nav').click(() => {
 })
 
 
-const loadView = (url, view)  => {
+const loadView = (url, view) => {
     $('.content-wrapper').load(url, () => {
-        console.log( view )
-        switch ( view ) {
+        console.log(view)
+        switch (view) {
             case "home":
                 //alert("cargando home")
                 break;
-            
+
             case "newPost":
                 //getPets()
                 break;
@@ -135,40 +135,69 @@ const setUser = () => {
 
 
 const printUserInfo = users => {
-    console.log(users)
     let groupSelect = $('#users-selector');
-    let infoDropdownGroup = $('#users-item-wrapper')
+    let groupText = $('#users-item-wrapper');
     groupSelect.children().remove();
-    let options, idx = 0 , text;
+    let options, idx = 0, text;
     for (key in users) {
-        if(idx == 0){
+        console.log(users[key])
+        if (idx == 0) {
             option =
                 `
                 <option value=${users[key].idUser} selected>${users[key].nickname}</option>
                 `;
+            text =
+                `
+                <p class="p-0 m-0 font-weight-bold ">${users[key].fullName}</p>
+                <p class="p-0 m-0"><small>@${users[key].nickname}</small></p>
+            `
+            $('#user-dropdown-pic').attr('src', users[key].avatarUrl)
 
-                $('#user-dropdown-pic').attr('src', users[key].avatarUrl)
-            
-        }else{
+        } else {
             option =
                 `
-                <option value=${users[key].id}>${users[key].nickname}</option>
+                <option value=${users[key].idUser}>${users[key].nickname}</option>
                 `;
 
         }
         idx++;
         groupSelect.append(option);
-        //infoDropdownGroup.append(text);
     }
+    groupText.append(text);
 }
 
 printUserInfo(getUsers())
+
+
+const filteredUserById = (users, idUser) => {
+    let filteredUser;
+    for (key in users) {
+        if (users[key].idUser == idUser) {
+            filteredUser = users[key];
+        }
+    }
+    return filteredUser
+}
+
+
+$('#users-selector').change(ev => {
+    let selectedOwnerData = filteredUserById(getUsers(), ev.target.value);
+    $('#user-dropdown-pic').attr('src', selectedOwnerData.avatarUrl);
+    $('#users-item-wrapper').children().remove();
+    let newText =
+        `
+            <p class="p-0 m-0 font-weight-bold ">${selectedOwnerData.fullName}</p>
+            <p class="p-0 m-0"><small>@${selectedOwnerData.nickname}</small></p>
+        `;
+    $('#users-item-wrapper').append(newText)
+})
 
 /* EVENT HANDLERS */
 $(".cont-wrapp").on("click", "#set-user", () => {
     //console.log( " agregando usuario ")
     setUser()
 })
+
 
 
 /* Jaimes */
