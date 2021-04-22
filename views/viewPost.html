@@ -1,1 +1,28 @@
-<h1>viewPost</h1>
+<div class="col-12 border rounded p-5">
+    <h1 class="text-center">Agregar Mentor</h1>
+    
+    <form class="m-3 p-3 text-muted" id="formNewMentor" >
+        <div class="form-group">
+          <label for="name">Nombre:</label>
+          <input type="text" class="form-control" name="name" value="">
+        </div>
+        <div class="form-group">
+            <label for="lastname">Apellido:</label>
+            <input type="text" class="form-control" name="lastname" value="">
+          </div>
+        <div class="form-group">
+          <label for="phone">Teléfono:</label>
+          <input type="text" class="form-control" name="phone" value="">
+        </div>
+        <div class="form-group">
+          <label for="age">Edad:</label>  
+          <input type="text" class="form-control" name="age" value="">
+        </div>
+        <select name="" id="gender" class="custom-select">
+            <option value="Hombre" selected>Hombre</option>
+            <option value="Mujer">Mujer</option>
+        </select>
+        <button type="button" class="btn btn-success w-100 mt-3" id="guardar">Guardar</button>
+    </form>
+   
+</div>
