@@ -221,10 +221,7 @@ header {
           border-radius: 10px;
           &:hover{
             color: #3b49df;
-          }
-          &:last-child{
-            /*border-top: 1px solid #b5bdc4;*/
-          }          
+          }      
         }
         hr{
           margin: 1px;
@@ -481,11 +478,6 @@ header {
         }
       }
 
-      h2,
-      .tags,
-      .reacts {
-        /*padding-left: 40px;*/
-      }
     } /*card body*/
   } /*card*/
 } /***********END POST LIST***********/

@@ -292,10 +292,6 @@ header .navbar .menu-right #menu-wrapper a:hover {
   color: #3b49df;
 }
 
-header .navbar .menu-right #menu-wrapper a:last-child {
-  /*border-top: 1px solid #b5bdc4;*/
-}
-
 header .navbar .menu-right #menu-wrapper hr {
   margin: 1px;
 }
@@ -617,12 +613,6 @@ header .navbar .menu-right #menu-wrapper hr {
 #post-list .card .card-body .reacts button:hover {
   background-color: #b5bdc4;
   cursor: pointer;
-}
-
-#post-list .card .card-body h2,
-#post-list .card .card-body .tags,
-#post-list .card .card-body .reacts {
-  /*padding-left: 40px;*/
 }
 
 /***********END POST LIST***********/
