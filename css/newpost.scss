@@ -1,24 +1,4 @@
 
-.tooltip-wrapper{
-    position: relative;
-    .tooltip-mod {
-        display: none;
-        position: absolute;
-        padding-top: 6em;
-        margin: 0 0 12px 0;    
-        h4{
-            font-weight: bold;
-        }
-        ul{
-            list-style: none;
-            padding: 0;
-            font-weight: normal;
-        }
-        }
-
-}
-
-
 
 
 #form-new-post{
@@ -57,8 +37,29 @@
 
 
     }
+}
+
+
+.tooltip-wrapper{
+    position: relative;
+    .tooltip-mod {
+        display: none;
+        position: absolute;
+        padding-top: 6em;
+        margin: 0 0 12px 0;    
+        h4{
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+        ul{
+            list-style: none;
+            padding: 0;
+            font-weight: normal;
+        }
+    }
 
 }
+
 
 
 

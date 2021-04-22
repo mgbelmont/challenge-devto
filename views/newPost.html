@@ -9,7 +9,7 @@
 
       <div class="form-group">
         <!-- <label for="image">Agrega imagen de encabezado</label> -->
-        <input type="text" placeholder="Add cover image URL here..." class="form-control" name="imgPost" />
+        <input id="new-post-image" type="text" placeholder="Add cover image URL here..." class="form-control" name="imgPost" />
       </div>
       <div class="form-group">
         <!-- <label for="title">Titulo del post</label> -->
@@ -36,6 +36,15 @@
   
   <div class="col-12 col-md-4 tooltip-wrapper">
 
+    <div  class="tooltip-mod tooltip-image center">
+        <h4 class="mb-2 fs-l">Choose the correct image</h4>
+        <ul class="list-disc pl-6 color-base-70">
+            <li>It’s important to choose an image that’s relevant to — and reflective of — your content. </li>
+            <li>You don’t want to mislead users about what they’ll get when they click, as that can erode brand trust, but you also need to make sure the people who do click are actually interested in the content. </li>
+            <li>The ultimate goal, after all, is to get social traffic that’s qualified.</li>
+        </ul>
+    </div>
+
     <div  class="tooltip-mod tooltip-title center">
         <h4 class="mb-2 fs-l">Writing a Great Post Title</h4>
         <ul class="list-disc pl-6 color-base-70">
@@ -58,9 +67,11 @@
     <div  class="tooltip-mod tooltip-content center">
         <h4 class="mb-2 fs-l">Editor Basics</h4>
         <ul class="list-disc pl-6 color-base-70">
-            <li>Use <a href="#markdown">Markdown</a> to write and format posts.<details class="fs-s my-1"><summary class="cursor-pointer">Commonly used syntax</summary>
-            <li>You can use <a href="#liquid">Liquid tags</a> to add rich content such as Tweets, YouTube videos, etc.</li>
+            <li>Use Markdown to write and format posts.</li>
+            <li>You can use Liquid tags to add rich content such as Tweets, YouTube videos, etc.</li>
             <li>In addition to images for the post's content, you can also drag and drop a cover image</li>
+            <li>You can use Liquid tags to add rich content such as Tweets, YouTube videos, etc.</li>
+            <li> In addition to images for the post's content, you can also drag and drop a cover image</li>
         </ul>
     </div>
     
@@ -80,13 +91,17 @@
 
 
   // TOOLTIPS
+  $('#new-post-image').hover(function() {
+    $(".tooltip-image").fadeIn(300);
+  }, function() {
+    $(".tooltip-image").fadeOut(300);
+  })
 
   $('#new-post-title').hover(function() {
     $(".tooltip-title").fadeIn(300);
   }, function() {
     $(".tooltip-title").fadeOut(300);
   })
-
 
   $('#new-post-tags').hover(function() {
     $(".tooltip-tags").fadeIn(300);
