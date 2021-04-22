@@ -1,26 +1,52 @@
 /* NAVIGATION  */
-
 $(document).ready(function () {
     $(".cont-wrapp").load('./views/home.html')
 })
 
-
-$('#post-btn-nav').click(ev=> {
+$('#post-btn-nav').click(ev => {
     let view = ev.target.dataset.view;
     let url = "./views/newPost.html"
     $(".cont-wrapp").load('./views/newPost.html')
 })
 
-$('.dropdown-menu a').click(event => {
+$('.dropdown-menu a.new-view').click(event => {
     event.preventDefault()
     let view = event.target.dataset.view
-    if(view){
+    if (view) {
         let url = `./views/${view}.html`
         $(".cont-wrapp").load(url, view)
-    }else {
-        alert('La opcion se encuentra deshabilitada...')
+    } else {
+        alert('La opcion se encuentra deshabilitada...');
     }
 })
+
+$('.dropdown-menu #change-user-nav').click(() => {
+    $('#myModal').modal('toggle')
+})
+
+
+const loadView = (url, view)  => {
+    $('.content-wrapper').load(url, () => {
+        console.log( view )
+        switch ( view ) {
+            case "home":
+                //alert("cargando home")
+                break;
+            
+            case "newPost":
+                //getPets()
+                break;
+
+            case "viewPost":
+                //alert("cargando users")
+                break;
+
+            default:
+                //alert("cargando home")
+                break;
+        }
+    })
+}
 
 /* HTTP METHODS USERS  */
 const getUsers = () => {
@@ -84,15 +110,15 @@ const putUsers = (key, data) => {
 const setUser = () => {
     let inputGroup = $('#form-users input[type="text"]');
     let idUser = Date.now();
-    let config = { day:'numeric', year: 'numeric', month: 'long' };
-    let today  = new Date();
+    let config = { day: 'numeric', year: 'numeric', month: 'long' };
+    let today = new Date();
     let joined = today.toLocaleDateString("en-US", config);
 
     let newUser = {
         idUser,
         joined,
     }
-    $.each(inputGroup, (idx, currentInput)=> {
+    $.each(inputGroup, (idx, currentInput) => {
         newUser = {
             ...newUser,
             [currentInput.name]: currentInput.value
@@ -102,13 +128,55 @@ const setUser = () => {
     postUsers(newUser);
 
 
-    $.each(inputGroup, (idx, currentInput)=> {
+    $.each(inputGroup, (idx, currentInput) => {
         currentInput.value = '';
     })
 }
+
+
+const printUserInfo = users => {
+    console.log(users)
+    let groupSelect = $('#users-selector');
+    let infoDropdownGroup = $('#users-item-wrapper')
+    groupSelect.children().remove();
+    let options, idx = 0 , text;
+    for (key in users) {
+        if(idx == 0){
+            option =
+                `
+                <option value=${users[key].idUser} selected>${users[key].nickname}</option>
+                `;
+            text = 
+                `
+                    <p>${users[key].fullName}</p>
+                    <p><small>@${users[key].nickname}</small></p>
+                `
+                $('#user-dropdown-pic').attr('src', users[key].avatarUrl)
+            
+        }else{
+            option =
+                `
+                <option value=${users[key].id}>${users[key].nickname}</option>
+                `;
+
+        }
+        idx++;
+        groupSelect.append(option);
+        infoDropdownGroup.append(text);
+    }
+}
+
+printUserInfo(getUsers())
 
 /* EVENT HANDLERS */
 $(".cont-wrapp").on("click", "#set-user", () => {
     //console.log( " agregando usuario ")
     setUser()
 })
+
+
+/* Jaimes */
+
+/* Juan de Dios */
+
+/* Mary */
