@@ -21,137 +21,189 @@
     <link rel="stylesheet" href="css/style.css" />
     <title>Four-card-feature-section</title>
   </head>
-  <body>
-    <!-- HEADER SECTION -->
-    <header class="w-100 bg-light">
-      <nav class="navbar navbar-light">
-        <div class="menu-left col-6">
-          <!-- Menu Hamburguesa -->
-          <!-- funcionalidad en jquery-->
-          <button
-            class="navbar-toggler d-sm-block d-md-none"
-            type="button"
-            data-toggle="collapse"
-            data-target="#navbarNav"
-            aria-controls="navbarNav"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarNav">
+  <body class="bg-fondo">      
+        <!-- HEADER SECTION -->
+        <header class="w-100 bg-light">
+          <nav class="navbar navbar-light">
+            <div class="menu-left col-6">
+              <!-- Menu Hamburguesa -->
+              <!-- funcionalidad en jquery-->
+              <button
+                class="navbar-toggler d-sm-block d-md-none"
+                type="button"
+                data-toggle="collapse"
+                data-target="#navbarNav"
+                aria-controls="navbarNav"
+                aria-expanded="false"
+                aria-label="Toggle navigation"
+              >
+                <span class="navbar-toggler-icon"></span>
+              </button>
+              <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav">
+                  <div class="title">
+                    <h2>DEV Community</h2>
+                    <button
+                      class="navbar-toggler close-button"
+                      type="button"
+                      data-toggle="collapse"
+                      data-target="#navbarNav"
+                      aria-controls="navbarNav"
+                      aria-expanded="false"
+                      aria-label="Toggle navigation"
+                    >
+                      <span class="">X</span>
+                    </button>
+                  </div>
 
-            <div class="navbar-nav">
-              <div class="title">
-                <h2>DEV Community</h2>
-                <button
-                  class="navbar-toggler close-button"
-                  type="button"
-                  data-toggle="collapse"
-                  data-target="#navbarNav"
-                  aria-controls="navbarNav"
-                  aria-expanded="false"
-                  aria-label="Toggle navigation"
-                >
-                  <span class="">X</span>
-                </button>
+                  <ul>
+                    <li class="nav-item active">
+                      <a href=""
+                        ><img src="images/sidebar/ico1.png" /> Home
+                        <span class="sr-only">(current)</span></a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico2.png" /> Reading List</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico3.png" /> Listings</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico4.png" /> Podcasts</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""
+                        ><img src="images/sidebar/ico5.png" /> Videos</a
+                      >
+                    </li>
+                    <li class="nav-item">
+                      <a href=""><img src="images/sidebar/ico6.png" /> Tags</a>
+                    </li>
+                    <li class="nav-item"><a href="">More...</a></li>
+                  </ul>
+                </div>
               </div>
 
-              <ul>
-                <li class="nav-item active">
-                  <a href=""
-                    ><img src="images/sidebar/ico1.png" /> Home
-                    <span class="sr-only">(current)</span></a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a href=""
-                    ><img src="images/sidebar/ico2.png" /> Reading List</a
-                  >
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico3.png" /> Listings</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico4.png" /> Podcasts</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico5.png" /> Videos</a>
-                </li>
-                <li class="nav-item">
-                  <a href=""><img src="images/sidebar/ico6.png" /> Tags</a>
-                </li>
-                <li class="nav-item"><a href="">More...</a></li>
-              </ul>
+              <!-- Logo -->
+              <a href="index.html"
+                ><img class="logo" src="images/dev-black.png"
+              /></a>
+              <!-- Search -->
+              <form class="form-inline my-2 my-lg-0 search">
+                <!--FUNCIONALIDAD JQUERY-->
+                <input
+                  class="form-control"
+                  type="search"
+                  placeholder="Search"
+                  aria-label="Search"
+                />
+              </form>
             </div>
-          </div>
 
-          <!-- Logo -->
-          <a href="index.html"
-            ><img class="logo" src="images/dev-black.png"
-          /></a>
-          <!-- Search -->
-          <form class="form-inline my-2 my-lg-0 search">
-            <!--FUNCIONALIDAD JQUERY-->
-            <input
-              class="form-control"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-          </form>
-        </div>
-
-        <div class="menu-right col-6 col-lg-4 offset-lg-2">
-          <button id="post-btn-nav" class="btn button-post" data-view="newPost">Write a post</button>
-          <img
-            class="ico-search"
-            src="images/single/icon-search.svg"
-            alt=""
-            srcset=""
-          />
-          <img src="images/single/icon-connect.svg" alt="" srcset="" />
-          <img src="images/single/icon-notification.svg" alt="" style="width: 24px;height: 24px;" />
-
-
-
-          <div class="dropdown dropdown-left d-flex align-items-center" style="width: 24px;height: 24px;">
-            <a id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <span>
-                <img
-                id='img-test'
-                src="images/single/photo-profile.jpeg"
-                
+            <div class="menu-right col-6 col-lg-4 offset-lg-2">
+              <button
+                id="post-btn-nav"
+                class="btn button-post"
+                data-view="newPost"
+              >
+                Write a post
+              </button>
+              <img
+                class="ico-search"
+                src="images/single/icon-search.svg"
                 alt=""
                 srcset=""
               />
-              </span>
-            </a>
-            <div class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenu2">
-              <div class="users-dropdown-wrapper dropdown-item">
-                <p>Eric Demian Martinez Valdez</p>
-                <p><small>@ddedemian</small></p>
+              <img src="images/single/icon-connect.svg" alt="" srcset="" />
+              <img
+                src="images/single/icon-notification.svg"
+                alt=""
+                style="width: 24px; height: 24px"
+              />
+
+              <div
+                class="dropdown dropdown-left d-flex align-items-center"
+                
+              >
+                <a
+                  id="dropdownMenu2"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  <span>
+                    <img
+                      id="user-dropdown-pic"
+                      alt=""
+                      style="width: 40px; height: 40px"
+                      class="ml-3 mr-md-0"
+                    />
+                  </span>
+                </a>
+                <div
+                  class="dropdown-menu dropdown-menu-right shadow"
+                  aria-labelledby="dropdownMenu2"
+                >
+                  <div id="users-item-wrapper" class="users-dropdown-wrapper dropdown-item py-3">
+                    
+                  </div>
+                  <a 
+                    href="#" 
+                    id="change-user-nav" 
+                    class="dropdown-item py-2"
+                  >Change User</a
+                  ><!--Podriamos cambiar de usuario con un modal-->
+                  <a
+                    href="#"
+                    id="create-user-nav"
+                    class="dropdown-item new-view py-2"
+                    data-view="newUser"
+                    >Create user</a
+                  ><!-- Podriamos agregar un usuario en una nueva pantalla-->
+                  <a
+                    href="#"
+                    id="write-post-nav"
+                    class="dropdown-item new-view py-2"
+                    data-view="newPost"
+                    >Write a post</a
+                  ><!-- Mostrara el contenido de newPost-->
+                  <a
+                    href="#"
+                    id="settings-nav"
+                    class="dropdown-item new-view py-2"
+                    data-view="viewUser"
+                    >Settings</a
+                  >
+                  <a
+                    href="#"
+                    id="settings-nav"
+                    class="dropdown-item new-view py-2"
+                    data-view="viewPost"
+                    >View Post</a
+                  >
+                  <!--Podria mostrar la informacion del usuario-->
+                  <hr />
+                  <a href="#" class="dropdown-item">Sign Out</a>
+                </div>
               </div>
-              <a href="#" id="change-user-nav" class="dropdown-item py-2" >Change User</a><!--Podriamos cambiar de usuario con un modal-->
-              <a href="#" id="create-user-nav" class="dropdown-item py-2" data-view="newUser">Create user</a><!-- Podriamos agregar un usuario en una nueva pantalla-->
-              <a href="#" id="write-post-nav" class="dropdown-item py-2" data-view="newPost">Write a post</a><!-- Mostrara el contenido de newPost-->
-              <a href="#" id="settings-nav" class="dropdown-item py-2" data-view="viewUser">Settings</a><!--Podria mostrar la informacion del usuario-->
-              <hr/>
-              <a href="#" class="dropdown-item">Sign Out</a>
             </div>
+          </nav>
+        </header>
+
+        <div class="container container-fluid">
+          <div class="cont-wrapp row">
+
           </div>
-            
         </div>
-      </nav>
-    </header>
-
-
-    <div class="cont-wrapp">
-      
+      </div>
     </div>
-
-
-
     <footer class="w-100">
       <img class="mono" src="images/single/footer-image.png" alt="" srcset="" />
       <div class="footer-wrapper">
@@ -202,6 +254,30 @@
         <div></div>
       </div>
     </footer>
+
+
+    <div id="myModal" class="modal" tabindex="-1">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">Selecciona tu usuario</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <select id="users-selector" class="custom-select">
+              
+
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  
     <script
       src="https://code.jquery.com/jquery-3.6.0.min.js"
       integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
