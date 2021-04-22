@@ -146,11 +146,7 @@ const printUserInfo = users => {
                 `
                 <option value=${users[key].idUser} selected>${users[key].nickname}</option>
                 `;
-            text = 
-                `
-                    <p>${users[key].fullName}</p>
-                    <p><small>@${users[key].nickname}</small></p>
-                `
+
                 $('#user-dropdown-pic').attr('src', users[key].avatarUrl)
             
         }else{
@@ -162,7 +158,7 @@ const printUserInfo = users => {
         }
         idx++;
         groupSelect.append(option);
-        infoDropdownGroup.append(text);
+        //infoDropdownGroup.append(text);
     }
 }
 
