@@ -140,7 +140,6 @@ const printUserInfo = users => {
     groupSelect.children().remove();
     let options, idx = 0, text;
     for (key in users) {
-        console.log(users[key])
         if (idx == 0) {
             option =
                 `
