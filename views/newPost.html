@@ -1,105 +1,42 @@
+<div class="col-12 px-0">
+  <div id="form-wrapper" class="w-100 bg-white1 p-3 my-md-4 shadow-sm rounded">
+    <h1 class="text-center mx-auto mt-5 font-weight-bold">
+      Agregar Nuevo Post
+    </h1>
 
+    <form class="m-3 p-3 text-muted" id="form-new-post">
+      <div class="form-group">
+        <label for="image">Agrega imagen de encabezado</label>
+        <input type="text" class="form-control" name="imgPost" />
+      </div>
+      <div class="form-group">
+        <label for="title">Titulo del post</label>
+        <input type="text" class="form-control" name="postTitle" />
+      </div>
+      <div class="form-group">
+        <label for="tags">Agrega tags</label>
+        <input id="input-tags" type="text" class="form-control" name="tags" />
+      </div>
+      <div class="form-group">
+        <label for="content">Agrega contenido:</label>
+        <input type="text" class="h-10 form-control" name="contentPost" />
+      </div>
 
-<h1 style="font-weight: bold;" class="text-center mx-auto mt-5">Agregar Nuevo Post</h1>
-
-<div id="form-wrapper" class="col-12">
-    <form class="m-3 p-3 text-muted" id="formNewMentor" >
-        <div class="form-group">
-            <label for="image">Add cover image:</label>
-            <input type="text" class="form-control" name="cover-image" value="">
-        </div>
-        <div class="form-group">
-            <label for="title">Title of the new post:</label>
-            <input type="text" class="form-control" name="title" value="">
-        </div>
-        <div class="form-group">
-            <label for="tags">Add tags:</label>
-            <input id="input-tags" type="text" class="form-control" name="tags" value="">
-        </div>
-        <div class="form-group">
-            <label for="content">Add Content:</label>
-            <input type="text" class="h-10 form-control" name="description" value="">
-        </div>
-
-        <button type="button" class="btn btn-primary w-100 mt-3" id="guardar">Guardar</button>
+      <button
+        type="button"
+        class="btn btn-primary w-100 mt-3 bg-blue-boton"
+        id="save-new-post"
+      >
+        Publicar post
+      </button>
     </form>
+  </div>
 </div>
 
-<section class="col-12 col-md-12 col-lg-12" id="post-list">
-    <div class="row">
-      <!--POST-->
-      <article class="card mb-3 mt-3">
-        <!--COVER SECTION-->
-        <img src="images/single/photo-main.jpeg" class="card-img-top" alt="...">
-
-        <div class="card-body">
-        <!--TITLE SECTION-->
-          <div>
-            <h1 class="card-title feature">
-              <a href="">Diagnosing Performance Issues 💻</a>
-            </h1>
-          </div>
-
-          <!--TAGS SECTION-->
-          <div class="tags" d-inline-flex>
-            <a href="#"><span>#</span>beginners</a>
-            <a href="#"><span>#</span>productivity</a>
-            <a href="#"><span>#</span>javascript</a>
-            <a href="#"><span>#</span>webdev</a>
-          </div>
-
-          <!--AUTOR SECTION-->
-          <div class="autor">
-            <img class="rounded-circle border border-secondary ico-profile"
-              src="images/single/photo-profile.jpeg" />
-            <div class="autor-name">
-              <div>Laurie</div>
-            </div>
-          </div>
-
-          <!--CONTENT SECTION-->
-          <div class="article-content">
-            <p>We've talked about <a href="#">performance tools</a> and <a href="#">web vitals</a>. So you know
-              how to measure performance and what the metrics are telling you. Now comes the hard part, how do you
-              improve them?</p>
-
-            <p>Lighthouse will give you some hints in particular cases, but the more complex your site, the less
-              helpful those can be. After the baseline optimizations, what's next?</p>
-
-            <h2>
-              <a name="the-calculator" href="#the-calculator" class="anchor">
-              </a>
-              The calculator
-            </h2>
-
-            <p>The first thing to know is that your overall performance score is based on a balance of the three
-              core web vitals (and some other metrics). In devtools, Lighthouse gives you a calculator that allows
-              you to adjust these values and see the resulting overall score.</p>
-
-            <p>To access the calculator run a Lighthouse audit and scroll to the Performance section.</p>
-
-
-            <p>It will open up the calculator so you can start moving metrics around and get an idea of what to
-              balance in order to improve your performance score.</p>
-          </div>
-
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-
-  <script>
-
-    //Para agregarle comas a los tags
-    $('#input-tags').keyup(function(){
-        var str = this.value.replace(/(\w)[\s,]+(\w?)/g, '$1, $2');
-        if (str!=this.value) this.value = str; 
-    });
-
-  </script>
-
-
-
-
+<script>
+  //Para agregarle comas a los tags
+  $("#input-tags").keyup(function () {
+    var str = this.value.replace(/(\w)[\s,]+(\w?)/g, "$1, $2");
+    if (str != this.value) this.value = str;
+  });
+</script>

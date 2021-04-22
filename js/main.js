@@ -7,6 +7,7 @@ $('#post-btn-nav').click(ev => {
     let view = ev.target.dataset.view;
     let url = "./views/newPost.html"
     $(".cont-wrapp").load('./views/newPost.html')
+    loadView(url,view)
 })
 
 $('.dropdown-menu a.new-view').click(event => {
@@ -14,7 +15,8 @@ $('.dropdown-menu a.new-view').click(event => {
     let view = event.target.dataset.view
     if (view) {
         let url = `./views/${view}.html`
-        $(".cont-wrapp").load(url, view)
+        //$(".cont-wrapp").load(url, view)
+        loadView(url,view)
     } else {
         alert('La opcion se encuentra deshabilitada...');
     }
@@ -26,7 +28,7 @@ $('.dropdown-menu #change-user-nav').click(() => {
 
 
 const loadView = (url, view) => {
-    $('.content-wrapper').load(url, () => {
+    $('.cont-wrapp').load(url, () => {
         console.log(view)
         switch (view) {
             case "home":
@@ -34,7 +36,6 @@ const loadView = (url, view) => {
                 break;
 
             case "newPost":
-                //getPets()
                 break;
 
             case "viewPost":
@@ -95,6 +96,81 @@ const putUsers = (key, data) => {
     $.ajax({
         method: "PUT",
         url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/users/${key}.json`,
+        data: JSON.stringify(data),
+        success: (response) => {
+            console.log(response);
+        },
+        error: (error) => {
+            console.log(error);
+        },
+    });
+};
+
+/* HTTP METHODS POST*/
+const getPosts = () => {
+    let usersCollection;
+    $.ajax({
+        method: "GET",
+        url: "https://ajaxclass-1ca34.firebaseio.com/11g/teamb/posts.json",
+        success: (response) => {
+            usersCollection = response;
+        },
+        error: (error) => {
+            console.log(error);
+        },
+        async: false,
+    });
+    return usersCollection;
+};
+
+const getPostByKey = key => {
+    let usersCollection;
+    $.ajax({
+        method: "GET",
+        url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/posts/${key}.json`,
+        success: (response) => {
+            usersCollection = response;
+        },
+        error: (error) => {
+            console.log(error);
+        },
+        async: false,
+    });
+    return usersCollection;
+};
+
+
+const savePost = newOwner => {
+    $.ajax({
+        method: "POST",
+        url: "https://ajaxclass-1ca34.firebaseio.com/11g/teamb/posts.json",
+        data: JSON.stringify(newOwner),
+        success: (response) => {
+            console.log(response);
+        },
+        error: (error) => {
+            console.log(error);
+        },
+    });
+};
+
+const deletePost = key => {
+    $.ajax({
+        method: "DELETE",
+        url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/posts/${key}.json`,
+        success: (response) => {
+            console.log(response);
+        },
+        error: (error) => {
+            console.log(error);
+        },
+    });
+};
+
+const putPost = (key, data) => {
+    $.ajax({
+        method: "PUT",
+        url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/posts/${key}.json`,
         data: JSON.stringify(data),
         success: (response) => {
             console.log(response);
@@ -191,12 +267,50 @@ $('#users-selector').change(ev => {
     $('#users-item-wrapper').append(newText)
 })
 
+const setPost = () => { 
+    let idUser = $('#users-selector option:selected').val();
+    let idPost = Date.now();
+    let config = { day: 'numeric', year: 'numeric', month: 'long' };
+    let today = new Date();
+    let createdDate = today.toLocaleDateString("en-US", config);
+    let createdTime = `${today.getHours()}:${today.getMinutes()<=9 ? '0' + today.getMinutes(): today.getMinutes()}`;
+
+    let newPost = {
+        idPost,
+        idUser,
+        createdDate,
+        createdTime
+    }
+
+    let inputGroup = $('#form-new-post input[type="text"]')
+    $.each(inputGroup, (idx,currentIn)=>{
+        newPost = {
+            ...newPost,
+            [currentIn.name]: currentIn.value
+        }
+    });
+
+    let tagsArr = newPost.tags.replace(/,/gi,'').split(' ');
+    tagsArr.splice(tagsArr.length-1,1);
+    
+    newPost.tags = tagsArr;
+    
+    savePost(newPost);
+
+    $.each(inputGroup, (idx,currentIn)=>{
+        currentIn.value = ""
+    });
+
+}
+
 /* EVENT HANDLERS */
 $(".cont-wrapp").on("click", "#set-user", () => {
     //console.log( " agregando usuario ")
     setUser()
 })
-
+$(".cont-wrapp").on('click','#save-new-post', ()=> {
+    setPost()
+})
 
 
 /* Jaimes */
