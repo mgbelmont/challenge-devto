@@ -35,7 +35,7 @@
 }
 
 body {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 a,
@@ -552,7 +552,7 @@ header .navbar .menu-right img:hover {
 #post-list .card .card-body h2,
 #post-list .card .card-body .tags,
 #post-list .card .card-body .reacts {
-  padding-left: 40px;
+  /*padding-left: 40px;*/
 }
 
 /***********END POST LIST***********/
