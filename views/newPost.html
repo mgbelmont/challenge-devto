@@ -1,6 +1,6 @@
 
 
-<h1 class="text-center">Agregar Nuevo Post</h1>
+<h1 style="font-weight: bold;" class="text-center mx-auto mt-5">Agregar Nuevo Post</h1>
 
 <div id="form-wrapper" class="col-12">
     <form class="m-3 p-3 text-muted" id="formNewMentor" >
@@ -13,12 +13,12 @@
             <input type="text" class="form-control" name="title" value="">
         </div>
         <div class="form-group">
-            <label for="content">Add Content:</label>
-            <input type="text" class="h-10 form-control" name="description" value="">
+            <label for="tags">Add tags:</label>
+            <input id="input-tags" type="text" class="form-control" name="tags" value="">
         </div>
         <div class="form-group">
-            <label for="image">Add Content Image:</label>
-            <input type="text" class="form-control" name="content-image" value="">
+            <label for="content">Add Content:</label>
+            <input type="text" class="h-10 form-control" name="description" value="">
         </div>
 
         <button type="button" class="btn btn-primary w-100 mt-3" id="guardar">Guardar</button>
@@ -31,14 +31,16 @@
       <article class="card mb-3 mt-3">
         <!--COVER SECTION-->
         <img src="images/single/photo-main.jpeg" class="card-img-top" alt="...">
-        <div class="card-body">
 
+        <div class="card-body">
+        <!--TITLE SECTION-->
           <div>
             <h1 class="card-title feature">
               <a href="">Diagnosing Performance Issues 💻</a>
             </h1>
           </div>
 
+          <!--TAGS SECTION-->
           <div class="tags" d-inline-flex>
             <a href="#"><span>#</span>beginners</a>
             <a href="#"><span>#</span>productivity</a>
@@ -52,17 +54,6 @@
               src="images/single/photo-profile.jpeg" />
             <div class="autor-name">
               <div>Laurie</div>
-              <div>
-                <time datetime="2021-03-01T14:40:00Z" class="date-no-year"
-                  title="lunes, 1 de marzo de 2021 8:40:00">1 mar</time>
-
-                <em>
-                  Originally published at
-                  <a href="#" style="color:#1395b8">laurieontech.com</a>
-                </em>
-
-                <span class="mr-4">・7 min read</span>
-              </div>
             </div>
           </div>
 
@@ -87,12 +78,6 @@
 
             <p>To access the calculator run a Lighthouse audit and scroll to the Performance section.</p>
 
-            <!--CONTENT IMAGE-->
-            <a href="#" class="">
-                <img class="w-100 rounded" src="images/single/content-image1.png"
-                  alt="Screenshot showing the link to the calculator in the text under the performance section of the Lighthouse run."
-                  loading="lazy">
-            </a>
 
             <p>It will open up the calculator so you can start moving metrics around and get an idea of what to
               balance in order to improve your performance score.</p>
@@ -103,6 +88,17 @@
 
     </div>
   </section>
+
+
+  <script>
+
+    //Para agregarle comas a los tags
+    $('#input-tags').keyup(function(){
+        var str = this.value.replace(/(\w)[\s,]+(\w?)/g, '$1, $2');
+        if (str!=this.value) this.value = str; 
+    });
+
+  </script>
 
 
 
