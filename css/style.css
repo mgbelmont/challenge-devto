@@ -380,6 +380,7 @@ header .navbar .menu-right #menu-wrapper hr {
 
 #post-list h1 {
   font-size: 1.14rem;
+  font-weight: bold;
 }
 
 #post-list a:link,
