@@ -286,13 +286,21 @@ $('.item-post .even').click(function() {
                        alert('data loaded');
                 });
  
-    } );*/
-
+    } );
+/*
     $('.cont-wrapp').on("click", '#view-comments', () => { 
         $('.cont-wrapp').children().remove();
 
+} );*/
+
+$('.cont-wrapp').on("click", '.load-page', () => { 
+  $('.cont-wrapp').children().remove();
+
 } );
  
+$( ".load-page" ).load( ".views/viewPost.html", () => {
+  alert( "Load was performed." );
+});
 
 
 /* Mary */
