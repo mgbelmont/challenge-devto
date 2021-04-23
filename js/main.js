@@ -217,7 +217,7 @@ const printFilteredPost = post => {
               <a href="#">${post.postTitle}</a>
             </h2>
           </div>
-          <div class="tags">${tagsAnc}
+          <div class="tags tags-color">${tagsAnc}
     </div>
           <div class="reacts">
             <div class="react-left">
