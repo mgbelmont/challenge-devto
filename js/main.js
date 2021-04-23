@@ -318,7 +318,7 @@ const printViewPost = post => {
    <article class="card p-4 mb-3 w-100">
         <div class="d-flex flex-column ">
         <div class="d-flex flex-row justify-content-between mb-4">
-          <h2 class="font-weight-bold m-0 my-auto">Discussion (0)</h2>
+          <h2 class="font-weight-bold m-0 my-auto discussion-header"></h2>
           <button class="btn btn-outline-secondary rounded">Suscribe</button>
         </div>
         <div class="w-100 d-flex flex-row mb-3">
@@ -497,6 +497,7 @@ const addReplies = allReplies => {
   </div>
     `
   })
+  $('.discussion-header').html(`Discussion ${replies.length}`)
   $('#wrapper-replies').append(accumReplies);
 }
 
