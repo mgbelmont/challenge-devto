@@ -43,7 +43,7 @@ const loadView = (url, view) => {
   $(".cont-wrapp").load(url, () => {
     switch (view) {
       case "home":
-        printAllPost(getPosts());
+        printAllPost(Object.entries(getPosts()));
         break;
 
       case "newPost":
@@ -609,16 +609,27 @@ $(".cont-wrapp").on('click', '#reply-comment', ev => {
     addReplies(getReplies())
 })
 
-/* Jaimes */
-
-/* Juan de Dios */
-
 /* Mary */
 const printAllPost = (postCollection) => {
+  var meses = new Array(
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "August",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec"
+  );
   var cardWrapper = $("#card-wrapper");
   cardWrapper.empty();
+  postCollection.forEach((item) => {
+    //console.log(item[1]);
 
-  Object.keys(postCollection).forEach((post) => {
     let {
       idPost,
       postTitle,
@@ -628,21 +639,57 @@ const printAllPost = (postCollection) => {
       createdDate,
       createdTime,
       idUser,
-    } = postCollection[post];
+    } = item[1];
+    let post = item[0];
 
     var tagsAnc = tags.reduce((accum, tag) => {
       return accum + `<a href = "#" > <span>#</span>${tag}</a>`;
     }, "");
+    var datePost = concatDate(createdDate, createdTime);
+
+    var time = (date) => {
+      var start = date;
+      var end = new Date();
+      let duration = end - start;
+
+      var milliseconds = parseInt((duration % 1000) / 100),
+        seconds = Math.floor((duration / 1000) % 60),
+        minutes = Math.floor((duration / (1000 * 60)) % 60),
+        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+      console.log(hours);
+      hours = hours < 10 ? "0" + hours : hours;
+      minutes = minutes < 10 ? "0" + minutes : minutes;
+      seconds = seconds < 10 ? "0" + seconds : seconds;
+      if (hours >= 24) {
+        //returnar dias
+        //console.log(hours);
+      }
+      if (minutes >= 60) {
+        //retornar horas
+        //console.log(hours);
+      }
+      if (seconds >= 60) {
+        //retornar minutos
+      }
+      let result = hours + ":" + minutes + ":" + seconds + "." + milliseconds;
+
+      return result;
+    };
+    time(datePost);
     var user = filteredUserById(getUsers(), idUser);
 
-    var cardHtml = `<article class="card mb-3" id="post${post}" data-postkey="${post}">
+    var cardHtml = `<article class="card mb-3 nav-view-post" id="post${post}" data-postkey="${post}">
         <img src="${imgPost}" class="card-img-top" alt="...">
         <div class="card-body">
           <div class="autor">
-            <img class="rounded-circle border border-secondary ico-profile" src="${user.avatarUrl}" />
+            <img class="rounded-circle border border-secondary ico-profile" src="${
+              user.avatarUrl
+            }" />
             <div class="autor-name">
               <div>${user.fullName}</div>
-              <div>${user.joined}</div>
+              <div>${
+                meses[datePost.getMonth()]
+              } ${datePost.getDate()} ${createdTime}</div>
             </div>
           </div>
           <div>
@@ -674,11 +721,259 @@ const printAllPost = (postCollection) => {
 
     cardWrapper.append(cardHtml);
     $("article:not(:first-of-type) .card-img-top").remove();
-    console.log();
-    $(".cont-wrapp").on("click", `#post${post}`, (event) => {
+
+    /*$(".cont-wrapp").on("click", `#post${post}`, (event) => {
       //console.log($(event.target).data("postkey"));
       //console.log($(`#post${post}`).attr("data-postkey")); //.event.target.data("postkey");
       loadView(`./views/viewPost.html?postkey=${post}`, "viewPost");
-    });
+    });*/
   });
 };
+/*FUNCTIONS FOR FILTERS */
+const concatDate = (date, time) => {
+  let fecha = time.split(" ")[0];
+
+  fecha.length == 4 ? (fecha = "0" + fecha + ":00") : (fecha = fecha + ":00");
+
+  let fechaCompleta = date + " " + fecha;
+
+  let convertirFecha = new Date(fechaCompleta);
+
+  return convertirFecha;
+};
+
+const currentWeek = (date) => {
+  todaydate = date;
+
+  var oneJan = new Date(todaydate.getFullYear(), 0, 1);
+
+  var numberOfDays = Math.floor((todaydate - oneJan) / (24 * 60 * 60 * 1000));
+
+  var result = Math.ceil((todaydate.getDay() + 1 + numberOfDays) / 7);
+
+  return result;
+};
+
+const arrayByCurrentYear = (array) => {
+  let onlycurrentYear = Object.entries(array).filter((item) => {
+    let currentYear =
+      concatDate(item[1].createdDate, item[1].createdTime).getFullYear() ===
+      new Date().getFullYear();
+    return currentYear;
+  });
+  return onlycurrentYear;
+};
+const arrayByCurrentMonth = (array) => {
+  //console.log("current Month", new Date().getMonth());
+  let onlycurrentMonth = arrayByCurrentYear(array).filter((item) => {
+    let currentMonth =
+      concatDate(item[1].createdDate, item[1].createdTime).getMonth() ===
+      new Date().getMonth();
+    return currentMonth;
+  });
+  return onlycurrentMonth;
+};
+
+/*START FILTER POSTS */
+const filterByFeed = (array) => {
+  let filterByDay = arrayByCurrentMonth(array).filter((item) => {
+    let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
+    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+
+    let arrayCurrentDay = listFechaArreglo.getDate() === new Date().getDate();
+    //console.log(arrayCurrentDay);
+    return arrayCurrentDay;
+  });
+  console.log(filterByDay);
+  filterByDay.sort(function (a, b) {
+    return (
+      concatDate(b[1].createdDate, b[1].createdTime).getTime() -
+      concatDate(a[1].createdDate, a[1].createdTime).getTime()
+    );
+  });
+  console.log("Filtrados", filterByDay);
+  printAllPost(filterByDay);
+};
+
+const filterByYear = (array) => {
+  let onlyLastYear = Object.entries(array).filter((item) => {
+    let lastYear =
+      concatDate(item[1].createdDate, item[1].createdTime).getFullYear() ===
+      new Date().getFullYear() - 1;
+    return lastYear;
+  });
+
+  let lastYear = onlyLastYear.sort(function (a, b) {
+    return (
+      concatDate(a[1].createdDate, a[1].createdTime).getTime() -
+      concatDate(b[1].createdDate, b[1].createdTime).getTime()
+    );
+  });
+  console.log(lastYear);
+
+  printAllPost(lastYear);
+};
+
+const filterByMonth = (array) => {
+  let onlycurrentMonth = arrayByCurrentMonth(array);
+  //meter después filtrado por replies
+  let lastMonth = onlycurrentMonth.sort(function (a, b) {
+    return (
+      concatDate(a[1].createdDate, b[1].createdTime).getTime() -
+      concatDate(b[1].createdDate, a[1].createdTime).getTime()
+    );
+  });
+  console.log(onlycurrentMonth);
+  printAllPost(onlycurrentMonth);
+};
+
+const filterByWeek = (array) => {
+  let numWeek = currentWeek(new Date());
+  let onlyCurrentWeek = arrayByCurrentMonth(array).filter((item) => {
+    let currentMonth =
+      currentWeek(concatDate(item[1].createdDate, item[1].createdTime)) ===
+      numWeek;
+    return currentMonth;
+  });
+
+  //filtrar por replies
+  onlyCurrentWeek.sort(function (a, b) {
+    return (
+      concatDate(b[1].createdDate, b[1].createdTime) -
+      concatDate(a[1].createdDate, a[1].createdTime)
+    );
+  });
+  console.log(onlyCurrentWeek);
+  printAllPost(onlyCurrentWeek);
+};
+
+const filterByInfinity = () => {};
+
+const filterByLatest = (array) => {
+  let miarreglo = Object.entries(array);
+  let filterByDay = miarreglo.forEach((item) => {
+    let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
+    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+  });
+
+  miarreglo.sort(function (a, b) {
+    return (
+      concatDate(b[1].createdDate, b[1].createdTime).getTime() -
+      concatDate(a[1].createdDate, a[1].createdTime).getTime()
+    );
+  });
+
+  console.log("Filtradoslatest", miarreglo);
+  printAllPost(miarreglo);
+};
+/*END FILTER POSTS */
+
+const filterPosts = (filter) => {
+  //checar como devolver los post con la key
+  var getAllPosts = getPosts();
+
+  let completeFechas = Object.keys(getAllPosts).reduce(
+    (accum, current, index) => {
+      let {
+        idPost,
+        postTitle,
+        tags,
+        imgPost,
+        contentPost,
+        createdDate,
+        createdTime,
+        idUser,
+      } = getAllPosts[current];
+
+      //let newArray = {...postData[current], fechasConv: new Date(createdDate).getTime()}
+      let newArray = {
+        ...getAllPosts[current],
+        fechasConv: new Date(createdDate).getTime(),
+        yearPost: new Date(createdDate).getFullYear(),
+      };
+
+      return { ...accum, [current]: newArray };
+    },
+    {}
+  );
+  /*
+  let latestPosts = Object.values(completeFechas).sort(function (a, b) {
+    return b.fechasConv - a.fechasConv;
+  });*/
+};
+
+//filter-desktop
+
+$(".cont-wrapp").on("click", ".filter-desktop a", (event) => {
+  $(".filter-desktop a").each((index, element) => {
+    element.classList.remove("active");
+  });
+  let elementName = $(event.target).data("filter");
+  console.log(elementName);
+  $(`#filtd-${elementName}`).addClass("active");
+  switch (elementName) {
+    case "feed":
+      filterByFeed(getPosts());
+      console.log("Por feed");
+      break;
+    case "week":
+      console.log("Por week");
+      //filterPosts(elementName);
+      filterByWeek(getPosts());
+      break;
+    case "month":
+      console.log("Por month");
+      filterByMonth(getPosts());
+      break;
+    case "year":
+      filterByYear(getPosts());
+      console.log("Por year");
+      break;
+    case "infinity":
+      console.log("Por infinity");
+      break;
+    case "latest":
+      filterByLatest(getPosts());
+      console.log("Por latest");
+      break;
+    case "default":
+      console.log("Por si acaso");
+      break;
+  }
+});
+
+
+
+$(".cont-wrapp").on("change", "#feed-filter-select", (event) => {
+  let filterSelected = $("#feed-filter-select").val();
+  switch (filterSelected) {
+    case "feed":
+      filterByFeed(getPosts());
+      console.log("Por feed");
+      break;
+    case "week":
+      console.log("Por week");
+      //filterPosts(elementName);
+      filterByWeek(getPosts());
+      break;
+    case "month":
+      console.log("Por month");
+      filterByMonth(getPosts());
+      break;
+    case "year":
+      filterByYear(getPosts());
+      console.log("Por year");
+      break;
+    case "infinity":
+      console.log("Por infinity");
+      break;
+    case "latest":
+      filterByLatest(getPosts());
+      console.log("Por latest");
+      break;
+    case "default":
+      console.log("Por si acaso");
+      break;
+  }
+  
+  })
