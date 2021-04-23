@@ -19,7 +19,9 @@
     <title>DEV Community 👩‍💻👨‍💻</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/interior.css" />
     <link rel="stylesheet" href="css/newpost.css" />
+    <link rel="stylesheet" href="css/viewpost.css" />
     <title>Four-card-feature-section</title>
   </head>
   <body class="bg-fondo">      
@@ -93,15 +95,15 @@
               </div>
 
               <!-- Logo -->
-              <a href="index.html"
-                ><img class="logo" src="images/dev-black.png"
+              <a
+              ><img data-view="home" id="nav-home" class="logo" src="images/dev-black.png"
               /></a>
               <!-- Search -->
-              <form class="form-inline my-2 my-lg-0 search">
+              <form id="filter-regex" class="form-inline my-2 my-lg-0 search">
                 <!--FUNCIONALIDAD JQUERY-->
                 <input
                   class="form-control"
-                  type="search"
+                  type="text"
                   placeholder="Search"
                   aria-label="Search"
                 />
@@ -135,11 +137,9 @@
                       <!-- Podriamos agregar un usuario en una nueva pantalla-->
                       <a href="#" id="write-post-nav" class="dropdown-item new-view py-2" data-view="newPost">Write a post</a>
                       <!-- Mostrara el contenido de newPost-->
-                      <a href="#" id="settings-nav" class="dropdown-item new-view py-2" data-view="viewUser">Settings</a>
-                      <a href="#" id="settings-nav" class="dropdown-item new-view py-2" data-view="viewPost">View Post</a>
                       <!--Podria mostrar la informacion del usuario-->
                       <hr />
-                      <a href="#" class="dropdown-item py-2">Sign Out</a>
+                      <a href="#" class="dropdown-item py-2" data-view="home">Sign Out</a>
                   </div>
               </div>
 
