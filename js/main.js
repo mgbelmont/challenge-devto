@@ -354,6 +354,9 @@ const printAllPost = (postCollection) => {
         </div>
       </article>`;
 
+    console.log(postCollection)
+    
+    
     cardWrapper.append(cardHtml);
     $("article:not(:first-of-type) .card-img-top").remove();
     console.log();
@@ -364,3 +367,4 @@ const printAllPost = (postCollection) => {
     });
   });
 };
+
