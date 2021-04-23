@@ -318,7 +318,7 @@ const printViewPost = post => {
    <article class="card p-4 mb-3 w-100">
         <div class="d-flex flex-column ">
         <div class="d-flex flex-row justify-content-between mb-4">
-          <h2 class="font-weight-bold m-0 my-auto">Discussion (0)</h2>
+          <h2 class="font-weight-bold m-0 my-auto discussion-header"></h2>
           <button class="btn btn-outline-secondary rounded">Suscribe</button>
         </div>
         <div class="w-100 d-flex flex-row mb-3">
@@ -450,7 +450,7 @@ const printViewPost = post => {
   `
 
   let listings =
-  `
+    `
   <div class="card card-side-right bg-white mt-3">
   <div class="card-header bg-white1 font-weight-bold text-profile-from">
     More from <span class="font-blue">Laurie</span>
@@ -471,10 +471,13 @@ const printViewPost = post => {
   $('#owner-card-info').prepend(userCardInfo)
   $('#owner-card-info').append(listings)
 
+}
+
+const addReplies = allReplies => {
+  $('#wrapper-replies').children().remove();
   let accumReplies = "";
   let currentUserReply;
-  let replies = getFilteredReplies(getReplies())
-  $('#wrapper-replies').children().remove()
+  let replies = getFilteredReplies(allReplies)
   replies.forEach(reply => {
     currentUserReply = filteredUserById(getUsers(), reply.idUser)
     accumReplies +=
@@ -494,11 +497,9 @@ const printViewPost = post => {
   </div>
     `
   })
-
+  $('.discussion-header').html(`Discussion ${replies.length}`)
   $('#wrapper-replies').append(accumReplies);
-
 }
-
 
 const setReply = () => {
   let idUser = $('#users-selector option:selected').val();
@@ -557,11 +558,15 @@ $(".cont-wrapp").on('click', '.nav-view-post', ev => {
     $('#post-article-wrapper').children().remove();
     $('#owner-card-info').children().remove();
     printViewPost(viewPostContent)
+    $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
   });
 })
 
 $(".cont-wrapp").on('click', '#reply-comment', ev => {
   setReply()
+  $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
 })
 
 /* Jaimes */
