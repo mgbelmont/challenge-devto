@@ -267,6 +267,7 @@ const printViewPost = post => {
   let postOwner = filteredUserById(getUsers(), post.idUser);
   let selectedUser = $("#users-selector").val();
   let currentUserInfo = filteredUserById(getUsers(), selectedUser);
+  console.log(currentUserInfo)
   //console.log(postOwner)
   post.tags.forEach(tag => {
     accumTags += `<a href="#" class="mr-1"><span>#</span>${tag}</a>`
@@ -488,7 +489,7 @@ const addReplies = allReplies => {
       <div class="w-100 d-flex flex-row mb-3">
 
         <div class="w-100 d-flex flex-row">
-            <img src=${currentUserInfo.avatarUrl} alt="profile-pic" class="rounded-circle mr-2 profile-pic">
+            <img src=${currentUserReply.avatarUrl} alt="profile-pic" class="rounded-circle mr-2 profile-pic">
 
             <div class="w-100 p-2 border rounded">
                 <p class=" text-muted">${reply.nickname} • ${reply.createdDate}</p>
