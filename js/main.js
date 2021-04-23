@@ -1,26 +1,37 @@
 /* NAVIGATION  */
 $(document).ready(function () {
-    $(".cont-wrapp").load('./views/home.html')
-    loadView("./views/home.html", "home");
+  $(".cont-wrapp").load('./views/home.html');
+  $('#filter-regex input[type="text"]').val('');
+  loadView("./views/home.html", "home");
 })
 
 $('#post-btn-nav').click(ev => {
-    let view = ev.target.dataset.view;
-    let url = "./views/newPost.html"
-    $(".cont-wrapp").load('./views/newPost.html')
-    loadView(url,view)
+  let view = ev.target.dataset.view;
+  let url = "./views/newPost.html"
+  $(".cont-wrapp").load('./views/newPost.html');
+  $('#filter-regex input[type="text"]').val('');
+  loadView(url, view)
 })
 
 $('.dropdown-menu a.new-view').click(event => {
-    event.preventDefault()
-    let view = event.target.dataset.view
-    if (view) {
-        let url = `./views/${view}.html`
-        //$(".cont-wrapp").load(url, view)
-        loadView(url,view)
-    } else {
-        alert('La opcion se encuentra deshabilitada...');
-    }
+  event.preventDefault()
+  let view = event.target.dataset.view
+  if (view) {
+    let url = `./views/${view}.html`
+    //$(".cont-wrapp").load(url, view)
+    $('#filter-regex input[type="text"]').val('');
+    loadView(url, view)
+  } else {
+    alert('La opcion se encuentra deshabilitada...');
+  }
+})
+
+$('#nav-home').click(ev => {
+  let view = ev.target.dataset.view;
+  let url = `./views/${view}.html`
+  //$(".cont-wrapp").load('./views/newPost.html')
+  $('#filter-regex input[type="text"]').val('');
+  loadView(url, view)
 })
 
 
@@ -30,11 +41,9 @@ $(".dropdown-menu #change-user-nav").click(() => {
 
 const loadView = (url, view) => {
   $(".cont-wrapp").load(url, () => {
-    console.log(view);
     switch (view) {
       case "home":
         printAllPost(getPosts());
-
         break;
 
       case "newPost":
@@ -53,7 +62,6 @@ const loadView = (url, view) => {
 };
 
 /* GENERAL METHODS */
-
 const setUser = () => {
   let inputGroup = $('#form-users input[type="text"]');
   let idUser = Date.now();
@@ -132,49 +140,132 @@ $("#users-selector").change((ev) => {
   $("#users-item-wrapper").append(newText);
 });
 
-const setPost = () => { 
-    let idUser = $('#users-selector option:selected').val();
-    let idPost = Date.now();
-    let config = { day: 'numeric', year: 'numeric', month: 'long' };
-    let today = new Date();
-    let createdDate = today.toLocaleDateString("en-US", config);
-    let createdTime = `${today.getHours()}:${today.getMinutes()<=9 ? '0' + today.getMinutes(): today.getMinutes()}`;
+const setPost = () => {
+  let idUser = $('#users-selector option:selected').val();
+  let idPost = Date.now();
+  let config = { day: 'numeric', year: 'numeric', month: 'long' };
+  let today = new Date();
+  let createdDate = today.toLocaleDateString("en-US", config);
+  let createdTime = `${today.getHours()}:${today.getMinutes() <= 9 ? '0' + today.getMinutes() : today.getMinutes()}`;
 
-    let newPost = {
-        idPost,
-        idUser,
-        createdDate,
-        createdTime
+  let newPost = {
+    idPost,
+    idUser,
+    createdDate,
+    createdTime
+  }
+
+  let inputGroup = $('#form-new-post input[type="text"]')
+  $.each(inputGroup, (idx, currentIn) => {
+    newPost = {
+      ...newPost,
+      [currentIn.name]: currentIn.value
     }
+  });
 
-    let inputGroup = $('#form-new-post input[type="text"]')
-    $.each(inputGroup, (idx,currentIn)=>{
-        newPost = {
-            ...newPost,
-            [currentIn.name]: currentIn.value
-        }
-    });
+  let tagsArr = newPost.tags.replace(/,/gi, '').split(' ');
+  tagsArr.splice(tagsArr.length - 1, 1);
 
-    let tagsArr = newPost.tags.replace(/,/gi,'').split(' ');
-    tagsArr.splice(tagsArr.length-1,1);
-    
-    newPost.tags = tagsArr;
-    
-    savePost(newPost);
+  newPost.tags = tagsArr;
 
-    $.each(inputGroup, (idx,currentIn)=>{
-        currentIn.value = ""
-    });
+  savePost(newPost);
+
+  $.each(inputGroup, (idx, currentIn) => {
+    currentIn.value = ""
+  });
 
 }
 
+const filteredCardsByTitle = regex => {
+  let patternFilter = new RegExp(regex, "gi");
+  let newTitles = getPosts();
+  let filteredPosts = [], keyFiltered;
+  for (key in newTitles) {
+    if (newTitles[key].postTitle.match(patternFilter)) {
+      newTitles[key] = {
+        ...newTitles[key],
+        key
+      }
+      filteredPosts.push(newTitles[key])
+    }
+  }
+
+  return filteredPosts;
+}
+
+
+const printFilteredPost = post => {
+  let cardsWrapper = $('#cards-wrapper');
+
+  post.forEach(post => {
+    let tagsAnc = post.tags.reduce((accum, tag) => {
+      return accum + `<a href = "#" > <span>#</span>${tag}</a>`;
+    }, "");
+    let user = filteredUserById(getUsers(), post.idUser);
+
+    let cardHtml = `<article class="card mb-3" id="post${post.key}" data-postkey="${post.key}">
+        <div class="card-body">
+          <div class="autor">
+            <img class="rounded-circle border border-secondary ico-profile" src="${user.avatarUrl}" />
+            <div class="autor-name">
+              <div>${user.fullName}</div>
+              <div>${user.joined}</div>
+            </div>
+          </div>
+          <div>
+            <h2 class="card-title feature">
+              <a href="#">${post.postTitle}</a>
+            </h2>
+          </div>
+          <div class="tags">${tagsAnc}
+    </div>
+          <div class="reacts">
+            <div class="react-left">
+              <a href="#">
+                <img src="images/single/reaction-heart.svg" />
+                <span> 10 </span><span class="react-text"> &nbsp;reactions</span>
+              </a>
+              <a href="#">
+                <img src="images/single/comentario.svg" />
+                <span> 2 </span><span class="react-text"> &nbsp;comments</span>
+              </a>
+            </div>
+            <div class="react-right">
+              <span>4 min read</span>
+              <button>Save</button>
+
+            </div>
+          </div>
+        </div>
+      </article>`;
+
+      cardsWrapper.append(cardHtml);
+  })
+}
+
+$('#filter-regex input[type="text"]').keypress(ev => {
+  let keycode = (ev.keyCode ? ev.keyCode : ev.which);
+  let regexFilter;
+  if (keycode == '13') {
+    regexFilter = ev.target.value;
+    $('.cont-wrapp').children().remove();
+    $('.cont-wrapp').load('./views/filteredView.html', () => {
+      let filteredCards = filteredCardsByTitle(regexFilter)
+      printFilteredPost(filteredCards)
+    })
+  }
+})
+
+
+
+
 /* EVENT HANDLERS */
 $(".cont-wrapp").on("click", "#set-user", () => {
-    //console.log( " agregando usuario ")
-    setUser()
+  //console.log( " agregando usuario ")
+  setUser()
 })
-$(".cont-wrapp").on('click','#save-new-post', ()=> {
-    setPost()
+$(".cont-wrapp").on('click', '#save-new-post', () => {
+  setPost()
 })
 
 /* Jaimes */

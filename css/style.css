@@ -274,6 +274,28 @@ header .navbar .menu-right .dropdown-left img {
   padding: 0;
 }
 
+header .navbar .menu-right #menu-wrapper {
+  min-width: 15rem;
+  padding: 0;
+}
+
+header .navbar .menu-right #menu-wrapper #users-item-wrapper {
+  border-bottom: 1px solid #b5bdc4;
+}
+
+header .navbar .menu-right #menu-wrapper a {
+  border: 4px solid #fff;
+  border-radius: 10px;
+}
+
+header .navbar .menu-right #menu-wrapper a:hover {
+  color: #3b49df;
+}
+
+header .navbar .menu-right #menu-wrapper hr {
+  margin: 1px;
+}
+
 .container-fluid {
   background-color: #eef0f1;
 }
@@ -591,12 +613,6 @@ header .navbar .menu-right .dropdown-left img {
 #post-list .card .card-body .reacts button:hover {
   background-color: #b5bdc4;
   cursor: pointer;
-}
-
-#post-list .card .card-body h2,
-#post-list .card .card-body .tags,
-#post-list .card .card-body .reacts {
-  /*padding-left: 40px;*/
 }
 
 /***********END POST LIST***********/
