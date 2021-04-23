@@ -332,8 +332,8 @@ const printViewPost = post => {
     
         <div id="wrapper-replies" class="mt-2">
 
-            <a class="archive text-muted" href="#"></a>
         </div>
+        <a class="archive text-muted" href="#"></a>
         
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
@@ -489,7 +489,7 @@ const addReplies = allReplies => {
     currentUserReply=filteredUserById(getUsers(),reply.idUser)
     accumReplies += 
     `
-    <div class="reply-card d-flex flex-column" data-idreply=${reply.idReply}>
+    <div class="reply-card flex-column" data-idreply=${reply.idReply}>
       <div class="w-100 d-flex flex-row mb-3">
 
         <div class="w-100 d-flex flex-row">
@@ -507,7 +507,11 @@ const addReplies = allReplies => {
   })
 
 
-setTimeout(function(){
+  $('.discussion-header').html(`Discussion ${replies.length}`)
+  $('#wrapper-replies').append(accumReplies);
+
+
+
 
     $(`#wrapper-replies div`).first().addClass("first-list-item");    
     $(`#wrapper-replies div`).first().removeClass("reply-card");
@@ -523,7 +527,7 @@ setTimeout(function(){
     $(".archive").click(function (e) {
 
     e.preventDefault();
-    var $container = $(e.currentTarget).closest('#replies-wrapper');
+    var $container = $('#wrapper-replies');
         if ($container.find(".reply-card:eq("+news+")").is(":hidden")) {
             $container.find(".reply-card:not(:lt("+news+"))").slideDown();
             $container.find(".archive").html( hidenews );
@@ -533,12 +537,9 @@ setTimeout(function(){
         }
     });
   
-},800);
 
 
 
-  $('.discussion-header').html(`Discussion ${replies.length}`)
-  $('#wrapper-replies').append(accumReplies);
 }
 
 const setReply = () => {
