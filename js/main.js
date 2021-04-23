@@ -905,3 +905,39 @@ $(".cont-wrapp").on("click", ".filter-desktop a", (event) => {
       break;
   }
 });
+
+
+
+$(".cont-wrapp").on("change", "#feed-filter-select", (event) => {
+  let filterSelected = $("#feed-filter-select").val();
+  switch (filterSelected) {
+    case "feed":
+      filterByFeed(getPosts());
+      console.log("Por feed");
+      break;
+    case "week":
+      console.log("Por week");
+      //filterPosts(elementName);
+      filterByWeek(getPosts());
+      break;
+    case "month":
+      console.log("Por month");
+      filterByMonth(getPosts());
+      break;
+    case "year":
+      filterByYear(getPosts());
+      console.log("Por year");
+      break;
+    case "infinity":
+      console.log("Por infinity");
+      break;
+    case "latest":
+      filterByLatest(getPosts());
+      console.log("Por latest");
+      break;
+    case "default":
+      console.log("Por si acaso");
+      break;
+  }
+  
+  })
