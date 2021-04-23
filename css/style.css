@@ -358,6 +358,14 @@ header .navbar .menu-right #menu-wrapper hr {
   padding: 12pt 0;
 }
 
+.side-banner h2 {
+  text-align: center;
+  color: #3b49df;
+  font-weight: bold;
+  font-size: 18pt;
+  padding: 12pt 0;
+}
+
 #post-list {
   /*card*/
 }
@@ -519,6 +527,7 @@ header .navbar .menu-right #menu-wrapper hr {
 
 #post-list .card .card-body .tags.tags-color a {
   padding: 5px 10px !important;
+  margin-right: 6px;
 }
 
 #post-list .card .card-body .tags.tags-color a:nth-child(4n+1) {
