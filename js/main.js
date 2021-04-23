@@ -455,7 +455,7 @@ const printViewPost = post => {
     `
   <div class="card card-side-right bg-white mt-3">
   <div class="card-header bg-white1 font-weight-bold text-profile-from">
-    More from <span class="font-blue">Laurie</span>
+    More from <span class="font-blue">${postOwner.fullName}</span>
   </div>
   <ul class="list-group list-group-flush">
     <li class="list-group-item">How to write a great blog post on dev.to: A guide for beginners!
