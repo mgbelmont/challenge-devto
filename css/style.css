@@ -358,12 +358,29 @@ header .navbar .menu-right #menu-wrapper hr {
   padding: 12pt 0;
 }
 
+#left-side .side-banner img {
+  border-radius: 5px;
+}
+
+.side-banner h2 {
+  text-align: center;
+  color: #3b49df;
+  font-weight: bold;
+  font-size: 18pt;
+  padding: 12pt 0;
+}
+
+.side-banner img {
+  border-radius: 5px;
+}
+
 #post-list {
   /*card*/
 }
 
 #post-list h1 {
   font-size: 1.14rem;
+  font-weight: bold;
 }
 
 #post-list a:link,
@@ -517,43 +534,44 @@ header .navbar .menu-right #menu-wrapper hr {
   color: #08090a;
 }
 
-#post-list .card .card-body .tags a {
+#post-list .card .card-body .tags.tags-color a {
   padding: 5px 10px !important;
+  margin-right: 6px;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+1) {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+1) {
   background-color: #000;
   color: #61DAF6;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+1) span {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+1) span {
   color: #61DAF6;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+2) {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+2) {
   background-color: #008335;
   color: #fff;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+2) span {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+2) span {
   color: #fff;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+3) {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+3) {
   background-color: #F7DF1E;
   color: #000;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+3) span {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+3) span {
   color: #000;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+4) {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+4) {
   background-color: #57d700;
   color: #fff;
 }
 
-#post-list .card .card-body .tags a:nth-child(4n+4) span {
+#post-list .card .card-body .tags.tags-color a:nth-child(4n+4) span {
   color: #fff;
 }
 
