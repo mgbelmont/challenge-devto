@@ -358,12 +358,20 @@ header .navbar .menu-right #menu-wrapper hr {
   padding: 12pt 0;
 }
 
+#left-side .side-banner img {
+  border-radius: 5px;
+}
+
 .side-banner h2 {
   text-align: center;
   color: #3b49df;
   font-weight: bold;
   font-size: 18pt;
   padding: 12pt 0;
+}
+
+.side-banner img {
+  border-radius: 5px;
 }
 
 #post-list {
