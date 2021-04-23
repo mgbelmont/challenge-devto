@@ -19,6 +19,7 @@
     <title>DEV Community 👩‍💻👨‍💻</title>
     <link rel="shortcut icon" type="image/x-icon" href="images/favicon.ico" />
     <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/newpost.css" />
     <title>Four-card-feature-section</title>
   </head>
   <body class="bg-fondo">      
@@ -108,93 +109,44 @@
             </div>
 
             <div class="menu-right col-6 col-lg-4 offset-lg-2">
-              <button
-                id="post-btn-nav"
-                class="btn button-post"
-                data-view="newPost"
-              >
-                Write a post
+              <button id="post-btn-nav" class="btn button-post" data-view="newPost">
+                  Write a post
               </button>
-              <img
-                class="ico-search"
-                src="images/single/icon-search.svg"
-                alt=""
-                srcset=""
-              />
+          
+              <img class="ico-search" src="images/single/icon-search.svg" alt="" srcset="" />
+          
               <img src="images/single/icon-connect.svg" alt="" srcset="" />
-              <img
-                src="images/single/icon-notification.svg"
-                alt=""
-                style="width: 24px; height: 24px"
-              />
+          
+              <img src="images/single/icon-notification.svg" alt="" />
+          
+              <div class="dropdown dropdown-left d-flex align-items-center">
 
-              <div
-                class="dropdown dropdown-left d-flex align-items-center"
-                style="width: 24px; height: 24px"
-              >
-                <a
-                  id="dropdownMenu2"
-                  data-toggle="dropdown"
-                  aria-haspopup="true"
-                  aria-expanded="false"
-                >
-                  <span>
-                    <img
-                      id="user-dropdown-pic"
-                      alt=""
-                      srcset=""
-                    />
-                  </span>
-                </a>
-                <div
-                  class="dropdown-menu dropdown-menu-right shadow"
-                  aria-labelledby="dropdownMenu2"
-                >
-                  <div id="users-item-wrapper" class="users-dropdown-wrapper dropdown-item">
-                    
+                  <a id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                      <span>
+                          <img id="user-dropdown-pic" alt="" style="width: 40px; height: 40px;" class="ml-3 mr-md-0" />
+                      </span>
+                  </a>
+
+                  <div id="menu-wrapper" class="dropdown-menu dropdown-menu-right shadow" aria-labelledby="dropdownMenu2">
+                      <div id="users-item-wrapper" class="users-dropdown-wrapper dropdown-item py-3"></div>
+                      <a href="#" id="change-user-nav" class="dropdown-item py-2">Change User</a>
+                      <!--Podriamos cambiar de usuario con un modal-->
+                      <a href="#" id="create-user-nav" class="dropdown-item new-view py-2" data-view="newUser">Create user</a>
+                      <!-- Podriamos agregar un usuario en una nueva pantalla-->
+                      <a href="#" id="write-post-nav" class="dropdown-item new-view py-2" data-view="newPost">Write a post</a>
+                      <!-- Mostrara el contenido de newPost-->
+                      <a href="#" id="settings-nav" class="dropdown-item new-view py-2" data-view="viewUser">Settings</a>
+                      <a href="#" id="settings-nav" class="dropdown-item new-view py-2" data-view="viewPost">View Post</a>
+                      <!--Podria mostrar la informacion del usuario-->
+                      <hr />
+                      <a href="#" class="dropdown-item py-2">Sign Out</a>
                   </div>
-                  <a 
-                    href="#" 
-                    id="change-user-nav" 
-                    class="dropdown-item py-2"
-                  >Change User</a
-                  ><!--Podriamos cambiar de usuario con un modal-->
-                  <a
-                    href="#"
-                    id="create-user-nav"
-                    class="dropdown-item new-view py-2"
-                    data-view="newUser"
-                    >Create user</a
-                  ><!-- Podriamos agregar un usuario en una nueva pantalla-->
-                  <a
-                    href="#"
-                    id="write-post-nav"
-                    class="dropdown-item new-view py-2"
-                    data-view="newPost"
-                    >Write a post</a
-                  ><!-- Mostrara el contenido de newPost-->
-                  <a
-                    href="#"
-                    id="settings-nav"
-                    class="dropdown-item new-view py-2"
-                    data-view="viewUser"
-                    >Settings</a
-                  >
-                  <a
-                    href="#"
-                    id="settings-nav"
-                    class="dropdown-item new-view py-2"
-                    data-view="viewPost"
-                    >View Post</a
-                  >
-                  <!--Podria mostrar la informacion del usuario-->
-                  <hr />
-                  <a href="#" class="dropdown-item">Sign Out</a>
-                </div>
               </div>
-            </div>
-          </nav>
-        </header>
+
+          </div>
+          
+        </nav>
+      </header>
 
         <div class="container container-fluid">
           <div class="cont-wrapp row">
@@ -293,6 +245,7 @@
       integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
       crossorigin="anonymous"
     ></script>
+    <script src="js/metodosHttp.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>
