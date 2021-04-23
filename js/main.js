@@ -329,10 +329,12 @@ const printViewPost = post => {
             <button type="button" class="btn bg-blue-boton text-white" id="reply-comment">Comentar</button> 
         </div>
 
+    
         <div id="wrapper-replies" class="mt-2">
 
+            <a class="archive text-muted" href="#"></a>
         </div>
-
+        
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
           <span role="presentation">•</span>
@@ -480,7 +482,9 @@ const addReplies = allReplies => {
   let accumReplies = "";
   let currentUserReply;
   let replies = getFilteredReplies(allReplies)
+
   $('#wrapper-replies').children().remove()
+
   replies.forEach(reply => {
     currentUserReply=filteredUserById(getUsers(),reply.idUser)
     accumReplies += 
@@ -501,6 +505,38 @@ const addReplies = allReplies => {
   </div>
     `
   })
+
+
+setTimeout(function(){
+
+    $(`#wrapper-replies div`).first().addClass("first-list-item");    
+    $(`#wrapper-replies div`).first().removeClass("reply-card");
+
+    var news = 0;
+  
+    hidenews = "- Hide news comments";
+    shownews = "+ Show more comments";
+  
+    $(".archive").html( shownews );
+    $(".reply-card").hide();
+  
+    $(".archive").click(function (e) {
+
+    e.preventDefault();
+    var $container = $(e.currentTarget).closest('#replies-wrapper');
+        if ($container.find(".reply-card:eq("+news+")").is(":hidden")) {
+            $container.find(".reply-card:not(:lt("+news+"))").slideDown();
+            $container.find(".archive").html( hidenews );
+        } else {
+            $container.find(".reply-card:not(:lt("+news+"))").slideUp();
+            $container.find(".archive").html( shownews );
+        }
+    });
+  
+},800);
+
+
+
   $('.discussion-header').html(`Discussion ${replies.length}`)
   $('#wrapper-replies').append(accumReplies);
 }
