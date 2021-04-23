@@ -450,7 +450,7 @@ const printViewPost = post => {
   `
 
   let listings =
-  `
+    `
   <div class="card card-side-right bg-white mt-3">
   <div class="card-header bg-white1 font-weight-bold text-profile-from">
     More from <span class="font-blue">Laurie</span>
@@ -471,10 +471,13 @@ const printViewPost = post => {
   $('#owner-card-info').prepend(userCardInfo)
   $('#owner-card-info').append(listings)
 
+}
+
+const addReplies = allReplies => {
+  $('#wrapper-replies').children().remove();
   let accumReplies = "";
   let currentUserReply;
-  let replies = getFilteredReplies(getReplies())
-  $('#wrapper-replies').children().remove()
+  let replies = getFilteredReplies(allReplies)
   replies.forEach(reply => {
     currentUserReply = filteredUserById(getUsers(), reply.idUser)
     accumReplies +=
@@ -494,11 +497,8 @@ const printViewPost = post => {
   </div>
     `
   })
-
   $('#wrapper-replies').append(accumReplies);
-
 }
-
 
 const setReply = () => {
   let idUser = $('#users-selector option:selected').val();
@@ -557,11 +557,15 @@ $(".cont-wrapp").on('click', '.nav-view-post', ev => {
     $('#post-article-wrapper').children().remove();
     $('#owner-card-info').children().remove();
     printViewPost(viewPostContent)
+    $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
   });
 })
 
 $(".cont-wrapp").on('click', '#reply-comment', ev => {
   setReply()
+  $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
 })
 
 /* Jaimes */
