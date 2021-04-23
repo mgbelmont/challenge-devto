@@ -273,78 +273,79 @@ const printViewPost = post => {
   })
   let articleContent =
     `
-   <article class="card mb-3 mt-3" id="post-article" data-idpost=${post.idPost}>
-   <img src=${post.imgPost} class="card-img-top" alt="img">
-   <div class="card-body p-2">
-     <div>
-       <h1 class="card-title feature">
-         <a href="">${post.postTitle}</a>
-       </h1>
-     </div>
+<article class="card mb-3 mt-3" id="post-article" data-idpost=${post.idPost}>
+    <img src=${post.imgPost} class="card-img-top" alt="img">
 
-     <div class="tags" d-inline-flex>
-      ${accumTags}
-     </div>
-     
-     <div class="autor">
-       <img class="rounded-circle border border-secondary ico-profile"
-         src=${postOwner.avatarUrl} />
-       <div class="autor-name">
-         <div>${postOwner.fullName}</div>
-         <div>
-           <time datetime="2021-03-01T14:40:00Z" class="date-no-year"
-             title="${post.createdDate} - ${post.createdTime}">${post.createdDate}</time>
+    <div class="card-body p-5">
+        <div>
+            <h1 class="card-title feature">
+                <a href="">${post.postTitle}</a>
+            </h1>
+        </div>
 
-           <em>
-             Originally published at
-             <a href="#" style="color:#1395b8">${postOwner.nickname}</a>
-           </em>
+        <div class="tags" d-inline-flex>
+            ${accumTags}
+        </div>
+        
+        <div class="autor">
+            <img class="rounded-circle border border-secondary ico-profile" src=${postOwner.avatarUrl} />
+            <div class="autor-name">
+                <div>${postOwner.fullName}</div>
 
-           <span class="mr-4">・7 min read</span>
-         </div>
-       </div>
-     </div>
-     <div class="article-content">
-       <p class="mt-2">${post.contentPost}</p>
-     </div>
+                <div>
+                    <time datetime="2021-03-01T14:40:00Z" class="date-no-year" title="${post.createdDate} - ${post.createdTime}">${post.createdDate}</time>
+                    <em>
+                        Originally published at
+                        <a href="#" style="color:#1395b8">${postOwner.nickname}</a>
+                    </em>
+                    <span class="mr-4">・7 min read</span>
+                </div>
+            </div>
 
+        </div>
+
+        <div class="article-content">
+            <p class="mt-2">${post.contentPost}</p>
+        </div>
    </div>
  </article>
-   `;
+`;
 
 
   let discussionContent =
     `
-   <article class="card p-4 mb-3 w-100">
+   <article id="discussions" class="card p-4 mb-3 w-100">
         <div class="d-flex flex-column ">
         <div class="d-flex flex-row justify-content-between mb-4">
           <h2 class="font-weight-bold m-0 my-auto discussion-header"></h2>
           <button class="btn btn-outline-secondary rounded">Suscribe</button>
         </div>
-        <div class="w-100 d-flex flex-row mb-3">
-          <div class="">
-            <img src=${currentUserInfo.avatarUrl} alt="profile-pic" class="rounded-circle mr-2" style="height: 32px;width: 32px;" id="replies-pic">
-          </div>
-          <input type="text" placeholder="Add to the discussion" class="reply-input w-75 rounded"></input>
-          </div>
-          <div class="d-flex">
-            <button type="button" class="btn bg-blue-boton text-white mt-2 mr-3" id="reply-comment">Comentar</button> 
-          </div>
+        <div class="w-100 d-flex flex-row mb-2">
+            <img src=${currentUserInfo.avatarUrl} alt="profile-pic" class="rounded-circle mr-2 profile-pic" id="replies-pic">
+            <input type="text" placeholder="Add to the discussion" class="reply-input w-100 rounded"></input>
+        </div>
+        <div class="d-flex mb-4">
+            <button type="button" class="btn bg-blue-boton text-white" id="reply-comment">Comentar</button> 
+        </div>
 
-          <div id="wrapper-replies" class="mt-2">
-          </div>
+        <div id="wrapper-replies" class="mt-2">
+
+        </div>
+
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
           <span role="presentation">•</span>
           <a href="#" ">Report abuse</a>
         </div>
+
       </div>
       </article>
    `;
 
   let articleReadNext =
-    `
-  <article class="card mb-3 w-100">
+
+  `
+  <article id="read-next" class="card mb-3 w-100">
         <div class="card-body">
           <h2 class="card-title pl-4">Read next</h2>
           <div class="list-next pl-4">
@@ -357,7 +358,7 @@ const printViewPost = post => {
 
                 <div class="d-flex flex-column justify-content-center ">
                   <h4>Getting paid less to do the same work on Upwork</h4>
-                  <p>
+                  <p class="text-muted">
                     Kauress - <time datetime="2021-03-06T00:21:07Z">Mar 6</time>
                   </p>
                 </div>
@@ -372,7 +373,7 @@ const printViewPost = post => {
                 </span>
                 <div class="d-flex flex-column justify-content-center">
                   <h4>Stripe for online payments</h4>
-                  <p>
+                  <p class="text-muted">
                     Bek Brace - <time datetime="2021-03-05T17:46:15Z">Mar 5</time>
                   </p>
                 </div>
@@ -386,7 +387,7 @@ const printViewPost = post => {
 
                 <div class="d-flex flex-column justify-content-center">
                   <h4>Usando Docker e docker-composer no dia a dia</h4>
-                  <p>
+                  <p class="text-muted">
                     Andrey Araújo - <time datetime="2021-03-05T22:40:24Z">Mar 5</time>
                   </p>
                 </div>
@@ -400,7 +401,7 @@ const printViewPost = post => {
 
                 <div class="d-flex flex-column justify-content-center">
                   <h4>Understanding useReducer in react</h4>
-                  <p>
+                  <p class="text-muted">
                     Elizabeth - <time datetime="2021-03-05T19:14:27Z">Mar 5</time>
                   </p>
                 </div>
@@ -478,21 +479,23 @@ const addReplies = allReplies => {
   let accumReplies = "";
   let currentUserReply;
   let replies = getFilteredReplies(allReplies)
+  $('#wrapper-replies').children().remove()
   replies.forEach(reply => {
-    currentUserReply = filteredUserById(getUsers(), reply.idUser)
-    accumReplies +=
-      `
-    <div class="d-flex flex-column" data-idreply=${reply.idReply}>
+    currentUserReply=filteredUserById(getUsers(),reply.idUser)
+    accumReplies += 
+    `
+    <div class="reply-card d-flex flex-column" data-idreply=${reply.idReply}>
       <div class="w-100 d-flex flex-row mb-3">
-        <div class="">
-          <img src="${currentUserReply.avatarUrl}" alt="profile-pic" class="rounded-circle mr-2" style="height: 32px;width: 32px;">
+
+        <div class="w-100 d-flex flex-row">
+            <img src=${currentUserInfo.avatarUrl} alt="profile-pic" class="rounded-circle mr-2 profile-pic">
+
+            <div class="w-100 p-2 border rounded">
+                <p class=" text-muted">${reply.nickname} • ${reply.createdDate}</p>
+                <p>${reply.contentReply}</p>
+            </div>
         </div>
-        <div class="w-75 border rounded">
-        <p>
-          ${reply.nickname} • ${reply.createdDate}
-        </p>
-        <p>${reply.contentReply}</p>
-        </div>
+
       </div>
   </div>
     `
