@@ -13,10 +13,6 @@
   font-weight: 700;
 }
 
-#post-list .card .card-body .autor-name div:nth-child(2) {
-  margin-left: 1.5rem;
-}
-
 #post-list .card .card-body .article-content p {
   font-size: 1.5rem;
   line-height: 1.5;

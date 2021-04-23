@@ -287,6 +287,16 @@ header {
   }
 }
 
+.side-banner {
+  h2 {
+    text-align: center;
+    color: #3b49df;
+    font-weight: bold;
+    font-size: 18pt;
+    padding: 12pt 0;
+  }
+}
+
 #post-list {
   h1 {
     font-size: 1.14rem;
@@ -408,6 +418,7 @@ header {
         &.tags-color{
           a{
             padding: 5px 10px !important;
+            margin-right: 6px;
             &:nth-child(4n+1){
               background-color: #000;
               color: #61DAF6;
