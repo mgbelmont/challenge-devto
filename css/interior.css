@@ -156,6 +156,10 @@
   top: 50px !important;
 }
 
+.sticky-top {
+  z-index: 0;
+}
+
 /*END SIDE RIGHT*/
 #left-side .menu-inner-post {
   display: -webkit-box;
