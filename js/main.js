@@ -326,7 +326,7 @@ const printViewPost = post => {
           <div class="">
             <img src=${currentUserInfo.avatarUrl} alt="profile-pic" class="rounded-circle mr-2" style="height: 32px;width: 32px;" id="replies-pic">
           </div>
-          <input id="reply-input" type="text" placeholder="Add to the discussion" class="w-75 rounded"></input>
+          <input type="text" placeholder="Add to the discussion" class="reply-input w-75 rounded"></input>
           </div>
           <div class="d-flex">
             <button type="button" class="btn bg-blue-boton text-white mt-2 mr-3" id="reply-comment">Comentar</button> 
@@ -454,6 +454,7 @@ const printViewPost = post => {
   let accumReplies = "";
   let currentUserReply;
   let replies = getFilteredReplies(getReplies())
+  $('#wrapper-replies').children().remove()
   replies.forEach(reply => {
     currentUserReply=filteredUserById(getUsers(),reply.idUser)
     accumReplies += 
@@ -487,7 +488,7 @@ const setReply = () => {
     let createdDate = today.toLocaleDateString("en-US", config);
     let createdTime = `${today.getHours()}:${today.getMinutes() <= 9 ? '0' + today.getMinutes() : today.getMinutes()}`;
     let idPost = $('#post-article').data('idpost');
-    let contentReply = $('#reply-input').val()
+    let contentReply = $('.reply-input').val()
     let newReply = {
       idUser,
       idReply,
@@ -502,7 +503,7 @@ const setReply = () => {
       nickname: userFiltered.nickname
     }
     saveReply(newReply)
-    contentReply = $('#reply-input').val('')
+    contentReply = $('.reply-input').val('')
 }
 
 $('#filter-regex input[type="text"]').keypress(ev => {
