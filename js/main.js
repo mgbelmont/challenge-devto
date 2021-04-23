@@ -56,7 +56,7 @@ const loadView = (url, view) => {
 
       case "filteredView":
 
-       break;
+        break;
 
       default:
         //alert("cargando home")
@@ -254,12 +254,11 @@ const getFilteredReplies = replies => {
   let idPost = $('#post-article').data('idpost');
   let arrReplies = []
   for (key in replies) {
-    if(replies[key].idPost == idPost){
+    if (replies[key].idPost == idPost) {
       arrReplies.push(replies[key])
     }
   }
 
-  console.log(arrReplies)
   return arrReplies;
 }
 
@@ -318,7 +317,7 @@ const printViewPost = post => {
    <article id="discussions" class="card p-4 mb-3 w-100">
         <div class="d-flex flex-column ">
         <div class="d-flex flex-row justify-content-between mb-4">
-          <h2 class="font-weight-bold m-0 my-auto">Discussion (0)</h2>
+          <h2 class="font-weight-bold m-0 my-auto discussion-header"></h2>
           <button class="btn btn-outline-secondary rounded">Suscribe</button>
         </div>
         <div class="w-100 d-flex flex-row mb-2">
@@ -344,6 +343,7 @@ const printViewPost = post => {
    `;
 
   let articleReadNext =
+
   `
   <article id="read-next" class="card mb-3 w-100">
         <div class="card-body">
@@ -420,8 +420,8 @@ const printViewPost = post => {
 
 
 
-  let userCardInfo = 
-  `
+  let userCardInfo =
+    `
   <div class="card bg-white1">
       <h5 class="card-header profile p-3"></h5>
       <div class="card-body">
@@ -449,11 +449,36 @@ const printViewPost = post => {
       </div>
     </div>
   `
-  $('#owner-card-info').prepend(userCardInfo)
 
+  let listings =
+    `
+  <div class="card card-side-right bg-white mt-3">
+  <div class="card-header bg-white1 font-weight-bold text-profile-from">
+    More from <span class="font-blue">Laurie</span>
+  </div>
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item">How to write a great blog post on dev.to: A guide for beginners!
+      <h6 class="tags">#beginners #codenewbie #writing #productivity</h6>
+    </li>
+    <li class="list-group-item">Microservices in 4 minutes - Introduction to Microservices
+      <h6>#webdev #career #beginners</h6>
+    </li>
+    <li class="list-group-item">Search Stack Overflow, docs, and code on GitHub from a single app
+      <h6>#productivity #programming #showdev</h6>
+    </li>
+  </ul>
+</div>
+  `
+  $('#owner-card-info').prepend(userCardInfo)
+  $('#owner-card-info').append(listings)
+
+}
+
+const addReplies = allReplies => {
+  $('#wrapper-replies').children().remove();
   let accumReplies = "";
   let currentUserReply;
-  let replies = getFilteredReplies(getReplies())
+  let replies = getFilteredReplies(allReplies)
   $('#wrapper-replies').children().remove()
   replies.forEach(reply => {
     currentUserReply=filteredUserById(getUsers(),reply.idUser)
@@ -475,36 +500,34 @@ const printViewPost = post => {
   </div>
     `
   })
-
+  $('.discussion-header').html(`Discussion ${replies.length}`)
   $('#wrapper-replies').append(accumReplies);
-
 }
 
-
 const setReply = () => {
-    let idUser = $('#users-selector option:selected').val();
-    let idReply = Date.now();
-    let config = { day: 'numeric', year: 'numeric', month: 'long' };
-    let today = new Date();
-    let createdDate = today.toLocaleDateString("en-US", config);
-    let createdTime = `${today.getHours()}:${today.getMinutes() <= 9 ? '0' + today.getMinutes() : today.getMinutes()}`;
-    let idPost = $('#post-article').data('idpost');
-    let contentReply = $('.reply-input').val()
-    let newReply = {
-      idUser,
-      idReply,
-      idPost,
-      createdDate,
-      createdTime,
-      contentReply
-    }
-    let userFiltered = filteredUserById(getUsers(), idUser)
-    newReply = {
-      ...newReply,
-      nickname: userFiltered.nickname
-    }
-    saveReply(newReply)
-    contentReply = $('.reply-input').val('')
+  let idUser = $('#users-selector option:selected').val();
+  let idReply = Date.now();
+  let config = { day: 'numeric', year: 'numeric', month: 'long' };
+  let today = new Date();
+  let createdDate = today.toLocaleDateString("en-US", config);
+  let createdTime = `${today.getHours()}:${today.getMinutes() <= 9 ? '0' + today.getMinutes() : today.getMinutes()}`;
+  let idPost = $('#post-article').data('idpost');
+  let contentReply = $('.reply-input').val()
+  let newReply = {
+    idUser,
+    idReply,
+    idPost,
+    createdDate,
+    createdTime,
+    contentReply
+  }
+  let userFiltered = filteredUserById(getUsers(), idUser)
+  newReply = {
+    ...newReply,
+    nickname: userFiltered.nickname
+  }
+  saveReply(newReply)
+  contentReply = $('.reply-input').val('')
 }
 
 $('#filter-regex input[type="text"]').keypress(ev => {
@@ -535,13 +558,18 @@ $(".cont-wrapp").on('click', '.nav-view-post', ev => {
   let key = ev.currentTarget.dataset.postkey;
   let viewPostContent = getPostByKey(key);
   $(".cont-wrapp").load('./views/viewPost.html', () => {
-    //$('#post-article-wrapper').children().remove();
+    $('#post-article-wrapper').children().remove();
+    $('#owner-card-info').children().remove();
     printViewPost(viewPostContent)
+    $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
   });
 })
 
 $(".cont-wrapp").on('click', '#reply-comment', ev => {
   setReply()
+  $('#wrapper-replies').children().remove();
+    addReplies(getReplies())
 })
 
 /* Jaimes */
