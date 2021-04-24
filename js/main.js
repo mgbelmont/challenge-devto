@@ -262,12 +262,22 @@ const getFilteredReplies = replies => {
   return arrReplies;
 }
 
+const getFilteredPostById = (post, id) => {
+  let filteredPosts = [];
+  for (key in post) {
+    if (post[key].idUser == id) {
+      filteredPosts.push(post[key])
+    }
+  }
+  return filteredPosts;
+}
+
 const printViewPost = post => {
   let accumTags = "";
   let postOwner = filteredUserById(getUsers(), post.idUser);
   let selectedUser = $("#users-selector").val();
   let currentUserInfo = filteredUserById(getUsers(), selectedUser);
-  console.log(currentUserInfo)
+  //console.log(currentUserInfo)
   //console.log(postOwner)
   post.tags.forEach(tag => {
     accumTags += `<a href="#" class="mr-1"><span>#</span>${tag}</a>`
@@ -329,10 +339,10 @@ const printViewPost = post => {
             <button type="button" class="btn bg-blue-boton text-white" id="reply-comment">Comentar</button> 
         </div>
 
+    
         <div id="wrapper-replies" class="mt-2">
 
         </div>
-
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
           <span role="presentation">•</span>
@@ -345,7 +355,7 @@ const printViewPost = post => {
 
   let articleReadNext =
 
-  `
+    `
   <article id="read-next" class="card mb-3 w-100">
         <div class="card-body">
           <h2 class="card-title pl-4">Read next</h2>
@@ -451,24 +461,27 @@ const printViewPost = post => {
     </div>
   `
 
+
+  let listingsPosts = getFilteredPostById(getPosts(), postOwner.idUser);
+  let liListing = "";
+  listingsPosts.forEach(post => {
+    liListing +=
+      `
+    <li class="list-group-item">${post.postTitle}
+      <h6 class="tags">${post.tags.reduce((accumTag, tag) => accumTag + `#${tag} `)}</h6>
+    </li>
+    `
+  })
   let listings =
     `
-  <div class="card card-side-right bg-white mt-3">
-  <div class="card-header bg-white1 font-weight-bold text-profile-from">
-    More from <span class="font-blue">${postOwner.fullName}</span>
-  </div>
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item">How to write a great blog post on dev.to: A guide for beginners!
-      <h6 class="tags">#beginners #codenewbie #writing #productivity</h6>
-    </li>
-    <li class="list-group-item">Microservices in 4 minutes - Introduction to Microservices
-      <h6>#webdev #career #beginners</h6>
-    </li>
-    <li class="list-group-item">Search Stack Overflow, docs, and code on GitHub from a single app
-      <h6>#productivity #programming #showdev</h6>
-    </li>
-  </ul>
-</div>
+      <div class="card card-side-right bg-white mt-3">
+      <div class="card-header bg-white1 font-weight-bold text-profile-from">
+        More from <span class="font-blue">${postOwner.fullName}</span>
+      </div>
+      <ul class="list-group list-group-flush">
+          ${liListing}
+      </ul>
+    </div>
   `
   $('#owner-card-info').prepend(userCardInfo)
   $('#owner-card-info').append(listings)
@@ -480,12 +493,15 @@ const addReplies = allReplies => {
   let accumReplies = "";
   let currentUserReply;
   let replies = getFilteredReplies(allReplies)
+
   $('#wrapper-replies').children().remove()
+
+
   replies.forEach(reply => {
-    currentUserReply=filteredUserById(getUsers(),reply.idUser)
-    accumReplies += 
-    `
-    <div class="reply-card d-flex flex-column" data-idreply=${reply.idReply}>
+    currentUserReply = filteredUserById(getUsers(), reply.idUser)
+    accumReplies +=
+      `
+    <div class="reply-card flex-column" data-idreply=${reply.idReply}>
       <div class="w-100 d-flex flex-row mb-3">
 
         <div class="w-100 d-flex flex-row">
@@ -501,8 +517,13 @@ const addReplies = allReplies => {
   </div>
     `
   })
+
+
   $('.discussion-header').html(`Discussion ${replies.length}`)
   $('#wrapper-replies').append(accumReplies);
+
+
+
 }
 
 const setReply = () => {
@@ -570,10 +591,9 @@ $(".cont-wrapp").on('click', '.nav-view-post', ev => {
 $(".cont-wrapp").on('click', '#reply-comment', ev => {
   setReply()
   $('#wrapper-replies').children().remove();
-    addReplies(getReplies())
+  addReplies(getReplies())
 })
 
-/* Mary */
 const printAllPost = (postCollection) => {
   var meses = new Array(
     "Jan",
@@ -620,7 +640,7 @@ const printAllPost = (postCollection) => {
         seconds = Math.floor((duration / 1000) % 60),
         minutes = Math.floor((duration / (1000 * 60)) % 60),
         hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-      console.log(hours);
+
       hours = hours < 10 ? "0" + hours : hours;
       minutes = minutes < 10 ? "0" + minutes : minutes;
       seconds = seconds < 10 ? "0" + seconds : seconds;
@@ -646,14 +666,12 @@ const printAllPost = (postCollection) => {
         <img src="${imgPost}" class="card-img-top" alt="...">
         <div class="card-body">
           <div class="autor">
-            <img class="rounded-circle border border-secondary ico-profile" src="${
-              user.avatarUrl
-            }" />
+            <img class="rounded-circle border border-secondary ico-profile" src="${user.avatarUrl
+      }" />
             <div class="autor-name">
               <div>${user.fullName}</div>
-              <div>${
-                meses[datePost.getMonth()]
-              } ${datePost.getDate()} ${createdTime}</div>
+              <div>${meses[datePost.getMonth()]
+      } ${datePost.getDate()} ${createdTime}</div>
             </div>
           </div>
           <div>
@@ -755,7 +773,7 @@ const filterByFeed = (array) => {
       concatDate(a[1].createdDate, a[1].createdTime).getTime()
     );
   });
-  console.log("Filtrados", filterByDay);
+  //console.log("Filtrados", filterByDay);
   printAllPost(filterByDay);
 };
 
@@ -773,7 +791,7 @@ const filterByYear = (array) => {
       concatDate(b[1].createdDate, b[1].createdTime).getTime()
     );
   });
-  console.log(lastYear);
+  //console.log(lastYear);
 
   printAllPost(lastYear);
 };
@@ -807,11 +825,28 @@ const filterByWeek = (array) => {
       concatDate(a[1].createdDate, a[1].createdTime)
     );
   });
-  console.log(onlyCurrentWeek);
+  //console.log(onlyCurrentWeek);
   printAllPost(onlyCurrentWeek);
 };
 
-const filterByInfinity = () => {};
+const filterByInfinity = array => {
+  let miarreglo = Object.entries(array);
+  let filterByDay = miarreglo.forEach((item) => {
+    let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
+    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+  });
+
+  miarreglo.sort(function (a, b) {
+    return (
+      concatDate(b[1].createdDate, b[1].createdTime).getTime() -
+      concatDate(a[1].createdDate, a[1].createdTime).getTime()
+    );
+  });
+
+  //console.log("Filtradoslatest", miarreglo);
+  printAllPost(miarreglo);
+
+};
 
 const filterByLatest = (array) => {
   let miarreglo = Object.entries(array);
@@ -827,7 +862,7 @@ const filterByLatest = (array) => {
     );
   });
 
-  console.log("Filtradoslatest", miarreglo);
+  //console.log("Filtradoslatest", miarreglo);
   printAllPost(miarreglo);
 };
 /*END FILTER POSTS */
@@ -878,30 +913,31 @@ $(".cont-wrapp").on("click", ".filter-desktop a", (event) => {
   switch (elementName) {
     case "feed":
       filterByFeed(getPosts());
-      console.log("Por feed");
+      //console.log("Por feed");
       break;
     case "week":
-      console.log("Por week");
+      //console.log("Por week");
       //filterPosts(elementName);
       filterByWeek(getPosts());
       break;
     case "month":
-      console.log("Por month");
+      //console.log("Por month");
       filterByMonth(getPosts());
       break;
     case "year":
       filterByYear(getPosts());
-      console.log("Por year");
+      //console.log("Por year");
       break;
     case "infinity":
-      console.log("Por infinity");
+      //console.log("Por infinity");
+      printAllPost(Object.entries(getPosts()));
       break;
     case "latest":
       filterByLatest(getPosts());
-      console.log("Por latest");
+      //console.log("Por latest");
       break;
     case "default":
-      console.log("Por si acaso");
+      //console.log("Por si acaso");
       break;
   }
 });
@@ -913,31 +949,32 @@ $(".cont-wrapp").on("change", "#feed-filter-select", (event) => {
   switch (filterSelected) {
     case "feed":
       filterByFeed(getPosts());
-      console.log("Por feed");
+      //console.log("Por feed");
       break;
     case "week":
-      console.log("Por week");
+      //console.log("Por week");
       //filterPosts(elementName);
       filterByWeek(getPosts());
       break;
     case "month":
-      console.log("Por month");
+      //console.log("Por month");
       filterByMonth(getPosts());
       break;
     case "year":
       filterByYear(getPosts());
-      console.log("Por year");
+      //console.log("Por year");
       break;
     case "infinity":
-      console.log("Por infinity");
+      //console.log("Por infinity");
+      printAllPost(Object.entries(getPosts()));
       break;
     case "latest":
       filterByLatest(getPosts());
-      console.log("Por latest");
+      //console.log("Por latest");
       break;
     case "default":
-      console.log("Por si acaso");
+      //console.log("Por si acaso");
       break;
   }
-  
-  })
+
+})
