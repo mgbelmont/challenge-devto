@@ -93,8 +93,8 @@ const setUser = () => {
 
 const printUserInfo = (users) => {
   let groupSelect = $("#users-selector");
+  groupSelect.children().remove()
   let groupText = $("#users-item-wrapper");
-  groupSelect.children().remove();
   let options,
     idx = 0,
     text;
@@ -594,6 +594,14 @@ $(".cont-wrapp").on('click', '#reply-comment', ev => {
   addReplies(getReplies())
 })
 
+const getRepliesByPost = (idPost) =>{ 
+  let replies = getReplies(); 
+  let totalReplies = Object.entries(replies).filter(item =>{ return item[1].idPost == idPost }) 
+  return totalReplies.length 
+} 
+
+
+
 const printAllPost = (postCollection) => {
   var meses = new Array(
     "Jan",
@@ -689,7 +697,7 @@ const printAllPost = (postCollection) => {
               </a>
               <a href="#">
                 <img src="images/single/comentario.svg" />
-                <span> 2 </span><span class="react-text"> &nbsp;comments</span>
+                <span> ${getRepliesByPost(idPost)}  </span><span class="react-text"> &nbsp;comments</span>
               </a>
             </div>
             <div class="react-right">
