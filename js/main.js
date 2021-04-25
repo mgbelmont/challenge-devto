@@ -52,6 +52,8 @@ const loadView = (url, view) => {
 
       case "viewPost":
         //alert("cargando users")
+        let reactions  = Object.entries (allReactions).filter(item=>item[1].idPost == currentIdPost);
+        $("#reaction-number-heart").text(reactions.length)
         break;
 
       case "filteredView":
@@ -986,3 +988,31 @@ $(".cont-wrapp").on("change", "#feed-filter-select", (event) => {
   }
 
 })
+
+/*Guardar reactions */
+
+$(".cont-wrapp").on("click", "#reaction-heart", (event) => {
+  
+  let idUser = $('#users-selector option:selected').val();
+  let currentIdPost = $('#post-article').data('idpost');
+  console.log(currentIdPost)
+  let idReply = Date.now();
+  let createdTime = Date.now();
+  let idPost = currentIdPost;
+  //insertar reaccion
+  let newReaction = {
+    idUser,
+    idReply,
+    idPost,
+    createdTime  }
+
+  saveReaction(newReaction)
+
+  let allReactions = getReactions();
+  
+  if (allReactions !=null){
+    let reactions  = Object.entries (allReactions).filter(item=>item[1].idPost == currentIdPost);
+    $("#reaction-number-heart").text(reactions.length)
+}
+  
+});

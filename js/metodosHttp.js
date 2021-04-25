@@ -188,3 +188,48 @@ const putReply = (key, data) => {
     },
   });
 };
+
+const saveReaction = (newReaction)=>{
+  $.ajax({
+    async:false,
+    method: "POST",
+    url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/reactions.json`,
+    data: JSON.stringify(newReaction),
+    success: (response) => {
+      console.log(response);
+    },
+    error: (error) => {
+      console.log(error);
+    },
+  });
+}
+
+const getReactions = () =>{
+  let reactions;
+  $.ajax({
+    async:false,
+    method: "GET",
+    url: "https://ajaxclass-1ca34.firebaseio.com/11g/teamb/reactions.json",
+    success: (response) => {
+      reactions = response;
+    },
+    error: (error) => {
+      console.log(error);
+    },
+    
+  });
+  return reactions;
+}
+
+const deleteReactions = (key) =>{
+  $.ajax({
+    method: "DELETE",
+    url: `https://ajaxclass-1ca34.firebaseio.com/11g/teamb/reactions/${key}.json`,
+    success: (response) => {
+      console.log(response);
+    },
+    error: (error) => {
+      console.log(error);
+    },
+  });
+}
