@@ -47,7 +47,7 @@ const loadView = (url, view) => {
         break;
 
       case "newPost":
-        //getPets()
+        //
         break;
 
       case "viewPost":
@@ -58,6 +58,10 @@ const loadView = (url, view) => {
 
       case "filteredView":
 
+        break;
+
+      case "viewUser":
+        printViewUserInfo(getUsers());
         break;
 
       default:
@@ -596,13 +600,63 @@ $(".cont-wrapp").on('click', '#reply-comment', ev => {
   addReplies(getReplies())
 })
 
-const getRepliesByPost = (idPost) =>{ 
-  let replies = getReplies(); 
-  let totalReplies = Object.entries(replies).filter(item =>{ return item[1].idPost == idPost }) 
-  return totalReplies.length 
-} 
+const getRepliesByPost = (idPost) => {
+  let replies = getReplies();
+  let totalReplies = Object.entries(replies).filter(item => { return item[1].idPost == idPost })
+  return totalReplies.length
+}
 
+const printViewUserInfo = users => {
+  $('#view-user-details').children().remove();
+  $('#user-interaction-details').children().remove();
+  let idUser = $('#users-selector').val();
+  let filteredUser = filteredUserById(getUsers(), idUser);
+  let keyUser;
+  for (key in users) {
+    if(users[key].idUser == idUser){
+      keyUser = key; 
+    }
+  }
+  let userCard = 
+  `
+    <img
+        src=${filteredUser.avatarUrl}
+        alt="avatar-imb"
+        class="rounded-circle mb-2"
+        style="width: 70px; height: 70px"
+      />
+      <h3 class="card-title font-weight-bold mb-2">${filteredUser.fullName}</h3>
+      <p class="card-text mb-2">${filteredUser.description}</p>
+      <p class="card-subtitle mb-2 text-muted mb-2">${filteredUser.joined}</p>
+      <button type="button" class="d-none btn bg-blue-boton text-white w-75" id="save-new-info" data-key=${keyUser}>
+        Editar perfil
+      </button>
+    </div>
+  `;
+  let allPosts = getPosts();
+  let allReplies = getReplies();
+  let accumReplies = 0, accumPosts = 0;
+  for ( key in allPosts) {
+    if (allPosts[key].idUser == idUser) {
+      accumPosts++;
+    }
+  }
+  for ( key in allReplies) {
+    if (allReplies[key].idUser == idUser) {
+      accumReplies++;
+    }
+  }
+  
+  let publishedCard = 
+  `
+    <li class="list-group-item"># ${accumPosts} post publicados</li>
+    <li class="list-group-item"># ${accumReplies} comentarios escritos</li>
+  `;
+  $('#view-user-details').append(userCard);
+  $('#user-interaction-details').append(publishedCard);
+}
 
+/* DATE-UTILITIES */
 
 const printAllPost = (postCollection) => {
   var meses = new Array(
