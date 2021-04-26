@@ -333,7 +333,7 @@ const printViewPost = post => {
         <div id="wrapper-replies" class="mt-2">
 
         </div>
-        <a class="archive text-muted" href="#"></a>
+        <div id="btnShowHide">Show or Hide Comments</div>
         
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
@@ -486,34 +486,6 @@ const addReplies = allReplies => {
   $('#wrapper-replies').children().remove()
 
 
-    //////////// INCIA FUNCION ////////////
-  $(`#wrapper-replies div`).first().addClass("first-list-item");    
-  $(`#wrapper-replies div`).first().removeClass("reply-card");
-
-  var news = 0;
-
-  hidenews = "- Hide comments";
-  shownews = "+ Show comments";
-
-  $(".archive").html( shownews );
-  $(".reply-card").hide();
-
-  $(".archive").click(function (e) {
-
-  e.preventDefault();
-  var $container = $('#wrapper-replies');
-      if ($container.find(".reply-card:eq("+news+")").is(":hidden")) {
-          $container.find(".reply-card:not(:lt("+news+"))").slideDown();
-          $container.find(".archive").html( hidenews );
-      } else {
-          $container.find(".reply-card:not(:lt("+news+"))").slideUp();
-          $container.find(".archive").html( shownews );
-      }
-  });
-
-  //////////// TERMINA FUNCION ////////////
-
-
 
   replies.forEach(reply => {
     currentUserReply=filteredUserById(getUsers(),reply.idUser)
@@ -534,18 +506,18 @@ const addReplies = allReplies => {
       </div>
   </div>
     `
+
   })
 
-
-  setTimeout(function(){
-    $(".archive").click();
-}, 100)
+    $('.discussion-header').html(`Discussion ${replies.length}`)
+    $('#wrapper-replies').append(accumReplies);
 
 
 
-  $('.discussion-header').html(`Discussion ${replies.length}`)
-  $('#wrapper-replies').append(accumReplies);
-
+    $("#btnShowHide").click();
+    $("#btnShowHide").click(function(){
+        $("#wrapper-replies").toggle();
+    });
 
 }
 
