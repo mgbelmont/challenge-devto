@@ -39,6 +39,19 @@ replies: {
     }
 }
 
+// ENDPOINT REACTIONS
+// https://ajaxclass-1ca34.firebaseio.com/11g/teamb/reactions.json
+replies: {
+    key-reaction-1: {
+        idReaction,
+        idPost, ->tbd
+        idUser, ->tbd
+        createdTime
+        
+    }
+}
+
+
 
 // Jerarquia
 users -> se necesita tener usuario para poder crear posts y replies
