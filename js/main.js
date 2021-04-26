@@ -227,7 +227,7 @@ const printFilteredPost = post => {
 
   post.forEach(post => {
     let tagsAnc = post.tags.reduce((accum, tag) => {
-      return accum + `<a href = "#" > <span>#</span>${tag}</a>`;
+      return accum + `<a class="my-1" href = "#" > <span>#</span>${tag}</a>`;
     }, "");
     let user = filteredUserById(getUsers(), post.idUser);
 
@@ -245,7 +245,7 @@ const printFilteredPost = post => {
               <a href="#">${post.postTitle}</a>
             </h2>
           </div>
-          <div class="tags tags-color">${tagsAnc}
+          <div class="tags tags-color d-flex flex-wrap">${tagsAnc}
     </div>
           <div class="reacts">
             <div class="react-left">
@@ -373,6 +373,7 @@ const printViewPost = post => {
         <div id="wrapper-replies" class="mt-2">
 
         </div>
+
         <div class="code-conduct d-flex justify-content-center">
           <a href="#" ">Code of conduct</a>
           <span role="presentation">•</span>
@@ -548,11 +549,8 @@ const addReplies = allReplies => {
     `
   })
 
-
-  $('.discussion-header').html(`Discussion ${replies.length}`)
-  $('#wrapper-replies').append(accumReplies);
-
-
+    $('.discussion-header').html(`Discussion ${replies.length}`)
+    $('#wrapper-replies').append(accumReplies);
 
 }
 
