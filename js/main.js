@@ -43,7 +43,7 @@ const loadView = (url, view) => {
   $(".cont-wrapp").load(url, () => {
     switch (view) {
       case "home":
-        printAllPost(Object.entries(getPosts()));
+        printAllPost(Object.entries(getPosts()),"feed");
         break;
 
       case "newPost":
@@ -52,6 +52,7 @@ const loadView = (url, view) => {
 
       case "viewPost":
         //alert("cargando users")
+        
         break;
 
       case "filteredView":
@@ -70,6 +71,24 @@ const loadView = (url, view) => {
 };
 
 /* GENERAL METHODS */
+const getNumReactions = (idPost) =>{
+  let allReactions = getReactions();
+  let numReactions = 0;
+  if (allReactions !=null){
+    let reactions  = Object.entries (allReactions).filter(reaction=>reaction[1].idPost == idPost);
+    numReactions = reactions.length
+  }
+  return numReactions;
+}
+const getRepliesByPost = (idPost) => {
+  let numReplies = 0;
+  let replies = getReplies();
+  if (replies !=null){
+   let totalReplies = Object.entries(replies).filter(item =>item[1].idPost == idPost)
+   numReplies  = totalReplies.length;
+  }
+   return numReplies
+}
 const setUser = () => {
   let inputGroup = $('#form-users input[type="text"]');
   let idUser = Date.now();
@@ -218,7 +237,7 @@ const printFilteredPost = post => {
             <img class="rounded-circle border border-secondary ico-profile" src="${user.avatarUrl}" />
             <div class="autor-name">
               <div>${user.fullName}</div>
-              <div>${user.joined}</div>
+              <div>${moment(concatDate(post.createdDate, post.createdTime)).format("MMM Do YY")}</div>
             </div>
           </div>
           <div>
@@ -232,11 +251,11 @@ const printFilteredPost = post => {
             <div class="react-left">
               <a href="#">
                 <img src="images/single/reaction-heart.svg" />
-                <span> 10 </span><span class="react-text"> &nbsp;reactions</span>
+                <span>${getNumReactions(post.idPost)} </span><span class="react-text"> &nbsp;reactions</span>
               </a>
               <a href="#">
                 <img src="images/single/comentario.svg" class="/>
-                <span> 2 </span><span class="react-text"> &nbsp;comments</span>
+                <span>   </span><span class="react-text"> &nbsp; ${getRepliesByPost(post.idPost)}comments</span>
               </a>
             </div>
             <div class="react-right">
@@ -283,6 +302,14 @@ const printViewPost = post => {
   let currentUserInfo = filteredUserById(getUsers(), selectedUser);
   //console.log(currentUserInfo)
   //console.log(postOwner)
+  let allReactions = getReactions();
+  
+  if (allReactions !=null){
+    let reactions  = Object.entries (allReactions).filter(item=>item[1].idPost == post.idPost);
+    $("#reaction-number-heart").text(reactions.length)
+  }else{
+    $("#reaction-number-heart").text("0")
+  }
   post.tags.forEach(tag => {
     accumTags += `<a href="#" class="mr-1"><span>#</span>${tag}</a>`
   })
@@ -290,7 +317,6 @@ const printViewPost = post => {
     `
 <article class="card mb-3 mt-3" id="post-article" data-idpost=${post.idPost}>
     <img src=${post.imgPost} class="card-img-top" alt="img">
-
     <div class="card-body p-5">
         <div>
             <h1 class="card-title feature">
@@ -598,12 +624,6 @@ $(".cont-wrapp").on('click', '#reply-comment', ev => {
   addReplies(getReplies())
 })
 
-const getRepliesByPost = (idPost) => {
-  let replies = getReplies();
-  let totalReplies = Object.entries(replies).filter(item => { return item[1].idPost == idPost })
-  return totalReplies.length
-}
-
 const printViewUserInfo = users => {
   $('#view-user-details').children().remove();
   $('#user-interaction-details').children().remove();
@@ -656,26 +676,21 @@ const printViewUserInfo = users => {
 
 /* DATE-UTILITIES */
 
-const printAllPost = (postCollection) => {
-  var meses = new Array(
-    "Jan",
-    "Feb",
-    "Mar",
-    "Apr",
-    "May",
-    "Jun",
-    "Jul",
-    "August",
-    "Sep",
-    "Oct",
-    "Nov",
-    "Dec"
-  );
-  var cardWrapper = $("#card-wrapper");
-  cardWrapper.empty();
-  postCollection.forEach((item) => {
-    //console.log(item[1]);
+const printAllPost = (postCollection,type) => {
 
+  let format = "MMMM Do";
+  let showDate = "day";
+
+  if(type !=""){
+    type == "year"|| type == "infinity" ? format = "MMM Do YY":"MMM Do";
+    type == "feed"|| type == "week" ? showDate = "day":showDate = "hour";
+  }
+ 
+  var cardWrapper = $("#card-wrapper");
+
+  cardWrapper.empty();
+
+  postCollection.forEach((item) => {
     let {
       idPost,
       postTitle,
@@ -688,40 +703,19 @@ const printAllPost = (postCollection) => {
     } = item[1];
     let post = item[0];
 
+    var datePost = concatDate(createdDate, createdTime);
+
+    let printFormatDate = moment(datePost).format(format);
+    let printDateTime = type == "year"|| type == "infinity" ? "": `(${moment(datePost).startOf(showDate).fromNow()})`
+    let numReactions = getNumReactions(item[1].idPost);
+    
+
+
     var tagsAnc = tags.reduce((accum, tag) => {
       return accum + `<a href = "#" > <span>#</span>${tag}</a>`;
     }, "");
-    var datePost = concatDate(createdDate, createdTime);
+   
 
-    var time = (date) => {
-      var start = date;
-      var end = new Date();
-      let duration = end - start;
-
-      var milliseconds = parseInt((duration % 1000) / 100),
-        seconds = Math.floor((duration / 1000) % 60),
-        minutes = Math.floor((duration / (1000 * 60)) % 60),
-        hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
-
-      hours = hours < 10 ? "0" + hours : hours;
-      minutes = minutes < 10 ? "0" + minutes : minutes;
-      seconds = seconds < 10 ? "0" + seconds : seconds;
-      if (hours >= 24) {
-        //returnar dias
-        //console.log(hours);
-      }
-      if (minutes >= 60) {
-        //retornar horas
-        //console.log(hours);
-      }
-      if (seconds >= 60) {
-        //retornar minutos
-      }
-      let result = hours + ":" + minutes + ":" + seconds + "." + milliseconds;
-
-      return result;
-    };
-    time(datePost);
     var user = filteredUserById(getUsers(), idUser);
 
     var cardHtml = `<article class="card mb-3 nav-view-post" id="post${post}" data-postkey="${post}">
@@ -732,8 +726,7 @@ const printAllPost = (postCollection) => {
       }" />
             <div class="autor-name">
               <div>${user.fullName}</div>
-              <div>${meses[datePost.getMonth()]
-      } ${datePost.getDate()} ${createdTime}</div>
+              <div>${printFormatDate} ${printDateTime}</div>
             </div>
           </div>
           <div>
@@ -747,7 +740,7 @@ const printAllPost = (postCollection) => {
             <div class="react-left">
               <a href="#">
                 <img src="images/single/reaction-heart.svg" />
-                <span> 10 </span><span class="react-text"> &nbsp;reactions</span>
+                <span> ${numReactions} </span><span class="react-text"> &nbsp;reactions</span>
               </a>
               <a href="#">
                 <img src="images/single/comentario.svg" />
@@ -808,7 +801,6 @@ const arrayByCurrentYear = (array) => {
   return onlycurrentYear;
 };
 const arrayByCurrentMonth = (array) => {
-  //console.log("current Month", new Date().getMonth());
   let onlycurrentMonth = arrayByCurrentYear(array).filter((item) => {
     let currentMonth =
       concatDate(item[1].createdDate, item[1].createdTime).getMonth() ===
@@ -822,13 +814,13 @@ const arrayByCurrentMonth = (array) => {
 const filterByFeed = (array) => {
   let filterByDay = arrayByCurrentMonth(array).filter((item) => {
     let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
-    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+    //console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
 
     let arrayCurrentDay = listFechaArreglo.getDate() === new Date().getDate();
     //console.log(arrayCurrentDay);
     return arrayCurrentDay;
   });
-  console.log(filterByDay);
+  //console.log(filterByDay);
   filterByDay.sort(function (a, b) {
     return (
       concatDate(b[1].createdDate, b[1].createdTime).getTime() -
@@ -836,7 +828,7 @@ const filterByFeed = (array) => {
     );
   });
   //console.log("Filtrados", filterByDay);
-  printAllPost(filterByDay);
+  printAllPost(filterByDay,"feed");
 };
 
 const filterByYear = (array) => {
@@ -855,7 +847,7 @@ const filterByYear = (array) => {
   });
   //console.log(lastYear);
 
-  printAllPost(lastYear);
+  printAllPost(lastYear,"year");
 };
 
 const filterByMonth = (array) => {
@@ -867,8 +859,8 @@ const filterByMonth = (array) => {
       concatDate(b[1].createdDate, a[1].createdTime).getTime()
     );
   });
-  console.log(onlycurrentMonth);
-  printAllPost(onlycurrentMonth);
+  //console.log(onlycurrentMonth);
+  printAllPost(onlycurrentMonth,"month");
 };
 
 const filterByWeek = (array) => {
@@ -888,14 +880,14 @@ const filterByWeek = (array) => {
     );
   });
   //console.log(onlyCurrentWeek);
-  printAllPost(onlyCurrentWeek);
+  printAllPost(onlyCurrentWeek,"week");
 };
 
 const filterByInfinity = array => {
   let miarreglo = Object.entries(array);
   let filterByDay = miarreglo.forEach((item) => {
     let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
-    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+    //console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
   });
 
   miarreglo.sort(function (a, b) {
@@ -906,7 +898,7 @@ const filterByInfinity = array => {
   });
 
   //console.log("Filtradoslatest", miarreglo);
-  printAllPost(miarreglo);
+  printAllPost(miarreglo, "infinity");
 
 };
 
@@ -914,7 +906,7 @@ const filterByLatest = (array) => {
   let miarreglo = Object.entries(array);
   let filterByDay = miarreglo.forEach((item) => {
     let listFechaArreglo = concatDate(item[1].createdDate, item[1].createdTime);
-    console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
+    //console.log(listFechaArreglo, item[0], listFechaArreglo.getTime());
   });
 
   miarreglo.sort(function (a, b) {
@@ -925,7 +917,7 @@ const filterByLatest = (array) => {
   });
 
   //console.log("Filtradoslatest", miarreglo);
-  printAllPost(miarreglo);
+  printAllPost(miarreglo,"latest");
 };
 /*END FILTER POSTS */
 
@@ -970,7 +962,7 @@ $(".cont-wrapp").on("click", ".filter-desktop a", (event) => {
     element.classList.remove("active");
   });
   let elementName = $(event.target).data("filter");
-  console.log(elementName);
+  //console.log(elementName);
   $(`#filtd-${elementName}`).addClass("active");
   switch (elementName) {
     case "feed":
@@ -992,7 +984,7 @@ $(".cont-wrapp").on("click", ".filter-desktop a", (event) => {
       break;
     case "infinity":
       //console.log("Por infinity");
-      printAllPost(Object.entries(getPosts()));
+      printAllPost(Object.entries(getPosts()),"infinity");
       break;
     case "latest":
       filterByLatest(getPosts());
@@ -1011,32 +1003,51 @@ $(".cont-wrapp").on("change", "#feed-filter-select", (event) => {
   switch (filterSelected) {
     case "feed":
       filterByFeed(getPosts());
-      //console.log("Por feed");
       break;
     case "week":
-      //console.log("Por week");
-      //filterPosts(elementName);
       filterByWeek(getPosts());
       break;
     case "month":
-      //console.log("Por month");
       filterByMonth(getPosts());
       break;
     case "year":
       filterByYear(getPosts());
-      //console.log("Por year");
       break;
     case "infinity":
-      //console.log("Por infinity");
-      printAllPost(Object.entries(getPosts()));
+      printAllPost(Object.entries(getPosts()),"infinity");
       break;
     case "latest":
       filterByLatest(getPosts());
-      //console.log("Por latest");
       break;
     case "default":
-      //console.log("Por si acaso");
       break;
   }
 
 })
+
+/*Guardar reactions */
+
+$(".cont-wrapp").on("click", "#reaction-heart", (event) => {
+  
+  let idUser = $('#users-selector option:selected').val();
+  let currentIdPost = $('#post-article').data('idpost');
+  let idReply = Date.now();
+  let createdTime = Date.now();
+  let idPost = currentIdPost;
+ 
+  let newReaction = {
+    idUser,
+    idReply,
+    idPost,
+    createdTime  }
+
+  saveReaction(newReaction)
+
+  let allReactions = getReactions();
+  
+  if (allReactions !=null){
+    let reactions  = Object.entries (allReactions).filter(item=>item[1].idPost == currentIdPost);
+    $("#reaction-number-heart").text(reactions.length)
+}
+  
+});
