@@ -1,6 +1,6 @@
 applications:
 - name: dev-to
-  memory: 32M
+  memory: 128M
   random-route: true
   stack: cflinuxfs3
   buildpack: staticfile_buildpack
